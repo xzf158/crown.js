@@ -1,5 +1,5 @@
 {
-  "name": "crown-framework",
+  "name": "crown.js",
   "version": "0.3.1",
   "dependencies": {
     "jquery": "latest",

@@ -1,6 +1,6 @@
 {
-  "name": "crown-framework",
-  "description": "An awesome requirejs app",
+  "name": "crown.js",
+  "description": "A website framework.",
   "version": "0.3.0",
   "engines": {
     "node": ">= 0.8.0"
@@ -9,7 +9,7 @@
     "test": "grunt jasmine"
   },
   "author": {
-    "name": "Christopher Young",
+    "name": "chrislearn",
     "email": "chris@acroidea.com",
     "url": "http://www.acroidea.com/"
   },
