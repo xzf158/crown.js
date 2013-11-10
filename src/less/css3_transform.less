@@ -1,0 +1,477 @@
+@w3c: true; // Unprefixed W3C syntax
+@webkit: true; // Chrome 7+, Safari 5+, iOS5, Android
+@moz: true; //  Firefox 4+
+@ms: true; // IE 10+
+
+@webkitSignal: 1;
+@mozSignal: 2;
+@msSignal: 4;
+@w3cSignal: 5;
+
+
+    //  element{ .transform(scale(.5) translate(10px, 20px)); }
+  .transform(@arguments:none, ...){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: @arguments;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .transform-origin(20% 40%); }
+  .transform-origin(@arguments:50% 50% 0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform-origin: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform-origin: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform-origin: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform-origin: @arguments;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+    
+    //  element{ .transform-style(preserve-3d); }
+  .transform-style(@arguments:flat){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform-style: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform-style: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform-style: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform-style: @arguments;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{  .translate(100px);  }
+    //  element{  .translate(100px, 50px);  }
+  .translate(@x:0, @y:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: translate(@x, @y);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: translate(@x, @y);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: translate(@x, @y);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: translate(@x, @y);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+
+    //  element{ .translate3d(10px, 20px, 30px); }
+  .translate3d(@x:0, @y:0, @z:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: translate3d(@x, @y, @z);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: translate3d(@x, @y, @z);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: translate3d(@x, @y, @z);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: translate3d(@x, @y, @z);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .translateX(10px); }
+  .translateX(@x:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: translateX(@x);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: translateX(@x);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: translateX(@x);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: translateX(@x);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .translateY(15px); }
+  .translateY(@y:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: translateY(@y);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: translateY(@y);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: translateY(@y);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: translateY(@y);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .translateZ(32px); }
+  .translateZ(@z:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: translateZ(@z);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: translateZ(@z);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: translateZ(@z);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: translateZ(@z);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+      //  element{ .scale(2); }
+    .scale(@x:1){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: scale(@x);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: scale(@x);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: scale(@x);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: scale(@x);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+      //  element{ .scale(2, 1); }
+  .scale(@x, @y){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: scale(@x, @y);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: scale(@x, @y);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: scale(@x, @y);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: scale(@x, @y);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+      //  element{ .scale3d(1, 2, 1); }
+    .scale3d(@x:1, @y:1, @z:1){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: scale3d(@x, @y, @z);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: scale3d(@x, @y, @z);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: scale3d(@x, @y, @z);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: scale3d(@x, @y, @z);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+
+
+      //  element{ .scaleX(1.5); }
+    .scaleX(@x:1){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: scaleX(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: scaleX(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: scaleX(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: scaleX(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+
+      //  element{ .scaleX(1.5); }
+    .scaleY(@y:1){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: scaleY(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: scaleY(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: scaleY(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: scaleY(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+      //  element{ .scaleZ(2.7); }
+  .scaleZ(@z:1){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: scaleZ(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: scaleZ(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: scaleZ(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: scaleZ(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .rotate(45deg); }
+  .rotate(@angle:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: rotate(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: rotate(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: rotate(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: rotate(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .rotate3d(1, 2.0, 3.0, 10deg); }
+  .rotate3d(@x:0, @y:0, @z: 0, @angle:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: rotate3d(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: rotate3d(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: rotate3d(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: rotate3d(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .rotateX(63deg); }
+  .rotateX(@angle:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: rotateX(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: rotateX(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: rotateX(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: rotateX(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .rotateY(24deg); }
+  .rotateY(@angle:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: rotateY(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: rotateY(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: rotateY(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: rotateY(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .rotateZ(280deg); }
+  .rotateZ(@angle:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: rotateZ(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: rotateZ(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: rotateZ(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: rotateZ(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .skew(20deg); }
+  .skew(@angle:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: skew(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: skew(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: skew(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: skew(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .skewX(24deg); }
+  .skewX(@angle:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: skewX(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: skewX(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: skewX(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: skewX(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .skewY(36deg); }
+  .skewY(@angle:0){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transform: skewY(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transform: skewY(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transform: skewY(@angle);
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transform: skewY(@angle);
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }

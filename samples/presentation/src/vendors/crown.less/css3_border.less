@@ -1,0 +1,137 @@
+@w3c: true; // Unprefixed W3C syntax
+@webkit: true; // Chrome 7+, Safari 5+, iOS5, Android
+@moz: true; //  Firefox 4+
+@ms: true; // IE 10+
+
+@webkitSignal: 1;
+@mozSignal: 2;
+@msSignal: 4;
+@w3cSignal: 5;
+
+    //  element{ .border-radius(10px); } //  all corner rounded
+    //  element{ .border-radius(~"10px / 20px"); } //  NEED TO BE ESCAPED OR LESS DEVIDE IT! Horizontal and vertical rounded differently
+    //  element{ .border-radius(0 10px 0 0); } // only top right corner rounded
+  .border-radius(@arguments:0) {
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-border-radius: @arguments; -webkit-background-clip: padding-box;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-border-radius: @arguments; -moz-background-clip: padding;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-border-radius: @arguments; -ms-background-clip: padding-box;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        border-radius: @arguments; background-clip: padding-box;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .border-top-left-radius(10px); }
+  .border-top-left-radius(@arguments:0) {
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-border-top-left-radius: @arguments; -webkit-background-clip: padding-box;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-border-radius-topleft: @arguments; -moz-background-clip: padding;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-border-top-left-radius: @arguments; -ms-background-clip: padding-box;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        border-top-left-radius: @arguments; background-clip: padding-box;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+    
+    //  element{ .border-top-right-radius(10px); }
+  .border-top-right-radius(@arguments:0) {
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-border-top-right-radius: @arguments; -webkit-background-clip: padding-box;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-border-radius-topright: @arguments; -moz-background-clip: padding;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-border-top-right-radius: @arguments; -ms-background-clip: padding-box;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        border-top-right-radius: @arguments; background-clip: padding-box;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .border-bottom-left-radius(10px); }
+  .border-bottom-left-radius(@arguments:0) {
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-border-bottom-left-radius: @arguments; -webkit-background-clip: padding-box;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-border-radius-bottomleft: @arguments; -moz-background-clip: padding;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-border-bottom-left-radius: @arguments; -ms-background-clip: padding-box;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        border-bottom-left-radius: @arguments; background-clip: padding-box;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+  //  element{ .border-bottom-right-radius(10px); }
+  .border-bottom-right-radius(@arguments:0) {
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-border-bottom-right-radius: @arguments; -webkit-background-clip: padding-box;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-border-radius-bottomright: @arguments; -moz-background-clip: padding;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-border-bottom-right-radius: @arguments; -ms-background-clip: padding-box;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        border-bottom-right-radius: @arguments; background-clip: padding-box;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+  //  element{ .border-image(url(border.png) 30 30 round); }
+  .border-image(@arguments:none){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-border-image: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-border-image: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-border-image: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        border-image: @arguments;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }

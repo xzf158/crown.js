@@ -1,0 +1,51 @@
+@w3c: true; // Unprefixed W3C syntax
+@webkit: true; // Chrome 7+, Safari 5+, iOS5, Android
+@moz: true; //  Firefox 4+
+@ms: true; // IE 10+
+
+@webkitSignal: 1;
+@mozSignal: 2;
+@msSignal: 4;
+@w3cSignal: 5;
+ 
+    //  element{ .perspective(350px); }
+  .perspective(@arguments:none){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-perspective: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-perspective: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-perspective: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        perspective: @arguments;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+  
+    //  element{ .perspective-origin(top left); }
+  .perspective-origin(@arguments:50% 50%){
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-perspective-origin: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-perspective-origin: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-perspective-origin: @arguments;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        perspective-origin: @arguments;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }

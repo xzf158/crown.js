@@ -1,0 +1,60 @@
+{
+  "name": "crown-framework",
+  "description": "An awesome requirejs app",
+  "version": "0.3.0",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt jasmine"
+  },
+  "author": {
+    "name": "Christopher Young",
+    "email": "chris@acroidea.com",
+    "url": "http://www.acroidea.com/"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/danheberden/gith/blob/master/LICENSE-MIT"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "latest",
+    "bower": "latest",
+    "less": "latest",
+    "grunt-shell": "latest",
+    "semver": "latest",
+    "q": "latest",
+    "shelljs": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-requirejs": "latest",
+    "grunt-contrib-connect": "latest",
+    "grunt-jasmine-node": "latest",
+    "grunt-bower": "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-karma": "latest",
+    "grunt-contrib-imagemin": "latest",
+    "grunt-contrib-htmlmin": "latest",
+    "grunt-regex-replace": "latest",
+    "grunt-casperjs": "latest",
+    "grunt-contrib-jasmine-node": "latest",
+
+    "soda": "latest",
+    "karma": "latest",
+    "karma-jasmine": "latest",
+    "karma-sauce-launcher": "latest",
+    "karma-script-launcher": "latest",
+    "karma-growl-reporter": "latest",
+    "karma-chrome-launcher": "latest",
+    "karma-firefox-launcher": "latest",
+    "karma-ie-launcher": "latest",
+    "karma-safari-launcher": "latest",
+    "promises-aplus-tests": "latest"
+  }
+}

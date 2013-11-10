@@ -1,0 +1,238 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no" />
+    <link href="favicon.png" rel="shortcut icon" type="image/png" />
+    <title>HTML5网站开发</title>
+    <script>
+       configData = {
+            baseUrl: './'
+        };
+    </script>
+    <script id="context-data" type="text/x-data">
+        {
+        scene: {
+        name: 'burble',
+        script: 'scripts/scenes/BasicScene'
+        }
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" class="vminpuly" href="styles/burble.css" />
+    <link rel="stylesheet" type="text/css" class="vminpuly" href="vendors/crown.player/surfaces/classic/themes/default/theme.css" />
+    <script data-main="scripts/config" src="vendors/requirejs/require.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="torso">
+            <div class="hn-scene-element scene-burble" data-scene-name="burble">
+                <div class="hn-zone cover-zone" data-name="cover" data-url="burble.html?zone=cover">
+                    <h1>Koodoogroup</h1>
+                    <h1>努力学习，天天向上！</h1>
+                </div>
+                <div class="hn-zone title-zone" data-name="title" data-url="burble.html?zone=title">
+                    <div class="caption">
+                        <h1>HTML5网站开发</h1>
+                        <h2>HTML5网站开发相关基础知识介绍<br>及常用开发工具、环境配置等</h2>
+                        <p>讲稿制作：Christopher</p>
+                    </div>
+                </div>
+                <div class="hn-zone navi-zone" data-name="navi" data-url="burble.html?zone=navi">
+                    <ul>
+                        <li>
+                            <a class="hn-zone-link" href="burble.html?zone=jquery">关于jquery</a>
+                        </li>
+                        <li>
+                            <a class="hn-zone-link" href="burble.html?zone=requirejs-1">关于requirejs</a>
+                        </li>
+                        <li>
+                            <a class="hn-zone-link" href="burble.html?zone=inhert">关于继承</a>
+                        </li>
+                        <li>
+                            <a class="hn-zone-link" href="burble.html?zone=charles">Charles</a>
+                        </li>
+                        <li>
+                            <a class="hn-zone-link" href="burble.html?zone=devtool">关于Chrome DEVTOOL</a>
+                        </li>
+                        <li>
+                            <a class="hn-zone-link" href="burble.html?zone=env">开发环境配置</a>
+                        </li>
+                        <li>
+                            <a class="hn-zone-link" href="burble.html?zone=polyfill">HTML5 Cross Browser Polyfills</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hn-zone jquery-zone" data-name="jquery" data-url="burble.html?zone=jquery">
+                    <h2>关于jquery</h2>
+                    <ul>
+                        <li class="build-item">
+                            写代码时尽量少创建jquery对象。
+                        </li>
+                        <li class="build-item">
+                            因为性能及功能问题，尽量使用TweenLite或者TweenMax做动画。
+                        </li>
+                        <li class="build-item">
+                            事件的名称空间很有用。
+                        </li>
+                        <li class="build-item">
+                            事件侦听使用on方法，并且如果存在多个需要侦听的相同行为的元素（比如列表元素），请对它们的父级使用on方法。
+                        </li>
+                        <li class="build-item">
+                            对于类似Ajax请求（$.get,$post,$.ajax）或类似的异步操作，避免使用回调函数。
+                        </li>
+                        <li class="build-item">
+                            <a href="http://api.jquery.com/category/deferred-object/">Deferred Object</a>，
+                            <a href="https://github.com/kriskowal/q/">Q.js</a>。
+                        </li>
+                    </ul>
+                </div>
+                <div class="hn-zone requirejs-zone" data-name="requirejs-1" data-url="burble.html?zone=requirejs-1">
+                    <h2>关于requirejs（一）</h2>
+                    <ul>
+                        <li class="build-item">
+                            AMD解决JS相互依赖及加载问题
+                        </li>
+                        <li class="build-item">
+                            定义一个模块，请使用 define：
+                            <pre class="prettyprint" data-lang="javascript">
+define(['crown', 'crown.site/Scene'], function (crown, Scene) {
+    var Scheme = crown.inherit('scene.BasicScene', Scene);
+    return Scheme;
+});</pre>
+                        </li>
+                        <li class="build-item">
+                            使用其他模块，请使用 require：
+                            <pre class="prettyprint" data-lang="javascript">
+require(['scripts/Main', 'domReady!'], function (Main) {
+    new Main();
+});</pre>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hn-zone requirejs-zone" data-name="requirejs-2" data-url="burble.html?zone=requirejs-2">
+                    <h2>关于requirejs（二）</h2>
+                    <ul>
+                        <li class="build-item">
+                            define，require 的差别在于是否需要返回一个可供其他模块使用的对象。如果代码本身的目的是想创建一个可供其他对象使用的对象，使用define；如果
+                            只是想调用一些现有的模块实现一个功能，使用require；如果在define内部还需要动态依赖其他的模块，使用require.
+                        </li>
+                        <li class="build-item">
+                            配置文件，paths、shim、packages
+                        </li>
+                        <li class="build-item">
+                            压缩代码，r.js、grunt-contrib-uglify
+                        </li>
+                    </ul>
+                </div>
+                <div class="hn-zone detail-zone inhert-zone" data-name="inhert" data-url="burble.html?zone=inhert">
+                    <h2>关于继承</h2>
+                    <ul>
+                        <li>
+                            新建类，crown.inherit(newClassName,parentClass)
+                        </li>
+                        <li>
+                            定义属性，crown.properties(prototype,[{name:'protoName',getter:true,setter:false}])
+                        </li>
+                        <li>
+                            调用父类方法, Scheme.uber.load.apply(this, arguments)
+                        </li>
+                    </ul>
+                    <pre class="prettyprint" data-lang="javascript">
+define(['crown', 'crown.site/Scene'], function (crown, Scene) {
+    var Scheme = crown.inherit("scene.BasicScene", Scene), proto = Scheme.prototype;
+    crown.properties(proto, [{ name: 'allLoaded', getter: true, setter: false }]);
+    proto.load = function ($content) {
+        var self = this, deferred = $.Deferred();
+        Scheme.uber.load.apply(this, arguments).done(function () {
+            self._allLoaded = true;
+            deferred.resolve();
+        });
+        stage.getSpinner().commit();
+        return deferred.promise();
+    };
+    proto.enter = function (paper) {
+        return Scheme.uber.enter.apply(this, arguments);
+    };
+    return Scheme;
+});</pre>
+                </div>
+                <div class="hn-zone charles-zone" data-name="charles" data-url="burble.html?zone=charles">
+                    <h2>Charles</h2>
+                    <ul>
+                        <li class="build-item">
+                            使用Charles限制网速
+                        </li>
+                        <li class="build-item">
+                            使用Charles作为代理服务器
+                        </li>
+                        <li class="build-item">
+                            使用Charles重定向文件
+                        </li>
+                        <li class="build-item">
+                            模拟发送请求，提交表单
+                        </li>
+                    </ul>
+                </div>
+                <div class="hn-zone devtool-zone" data-name="devtool" data-url="burble.html?zone=devtool">
+                    <h2>关于Chrome DEVTOOL</h2>
+                    <ul>
+                        <li class="build-item">
+                            如何对压缩的代码进行调试
+                        </li>
+                        <li class="build-item">
+                            如何查看性能
+                        </li>
+                        <li class="build-item">
+                            如何发现内存泄漏
+                        </li>
+                        <li class="build-item">
+                            其他一些小技巧，隐藏元素，改变颜色格式
+                        </li>
+                    </ul>
+                </div>
+                <div class="hn-zone env-zone" data-name="env" data-url="burble.html?zone=env">
+                    <h2>开发环境配置</h2>
+                    <ul>
+                        <li class="build-item">
+                            IIS下的配置, host文件的修改，安装新应用程序，将Projects设成虚拟目录
+                        </li>
+                        <li class="build-item">
+                            Nodejs+Yeoman
+                        </li>
+                    </ul>
+                </div>
+                <div class="hn-zone polyfill-zone" data-name="polyfill" data-url="burble.html?zone=polyfill">
+                    <h2>HTML5 Cross Browser Polyfills</h2>
+                    <p>解决浏览器兼容性问题，很多有实用价值的库，比如：</p>
+                    <ul>
+                        <li>
+                            History.js
+                        </li>
+                        <li>
+                            CSS3PIE
+                        </li>
+                        <li>
+                            css3-mediaqueries-js
+                        </li>
+                        <li>
+                            cssFX
+                        </li>
+                        <li>
+                            vminpoly
+                        </li>
+                        <li>
+                            Respond
+                        </li>
+                    </ul>
+                    <p>期待有人能够都看一下这些开源项目，找出对我们真正有用的来。</p>
+                </div>
+                <div class="hn-zone end-zone" data-name="end" data-url="burble.html?zone=end">
+                    <h1>行动！行动！行动才是硬道理！</h1>
+                    <h1>循序渐进，一步一个脚印！</h1>
+                    <h2>Thank You!</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

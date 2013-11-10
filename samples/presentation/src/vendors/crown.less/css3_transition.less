@@ -1,0 +1,126 @@
+@w3c: true; // Unprefixed W3C syntax
+@webkit: true; // Chrome 7+, Safari 5+, iOS5, Android
+@moz: true; //  Firefox 4+
+@ms: true; // IE 10+
+
+@webkitSignal: 1;
+@mozSignal: 2;
+@msSignal: 4;
+@w3cSignal: 5;
+
+  //   element{ .transition(transform 3s linear); }
+  .transition(...){
+      @transitionWebkit: ~`(function(){var a,b,c,d,e,f,g;a="@{arguments}".split(","),c=["background-size","border-","box-shadow","column","transform"],d=c.length,e=a,f=!1,b=a.length;for(var h=0;h<d;h++)for(var i=0;i<b;i++){g=new RegExp(c[h],"g");try{"".trim(),f=!0}catch(j){f=!1}a[i]=f?a[i].trim():a[i],g.test(a[i])&&(e[i]=a[i].replace(g,"-webkit-"+c[h]))}return e.join(", ").replace("[","").replace("]","");}())`;
+      @transitionMoz: ~`(function(){var a,b,c,d,e,f,g;a="@{arguments}".split(","),c=["background-size","border-","box-shadow","column","transform"],d=c.length,e=a,f=!1,b=a.length;for(var h=0;h<d;h++)for(var i=0;i<b;i++){g=new RegExp(c[h],"g");try{"".trim(),f=!0}catch(j){f=!1}a[i]=f?a[i].trim():a[i],g.test(a[i])&&(e[i]=a[i].replace(g,"-moz-"+c[h]))}return e.join(", ").replace("[","").replace("]","");}())`;
+      @transitionMs: ~`(function(){var a,b,c,d,e,f,g;a="@{arguments}".split(","),c=["transform"],d=c.length,e=a,f=!1,b=a.length;for(var h=0;h<d;h++)for(var i=0;i<b;i++){g=new RegExp(c[h],"g");try{"".trim(),f=!0}catch(j){f=!1}a[i]=f?a[i].trim():a[i],g.test(a[i])&&(e[i]=a[i].replace(g,"-ms-"+c[h]))}return e.join(", ").replace("[","").replace("]","");}())`;
+      @transitionW3C: ~`(function(){var a,b,c;a="@{arguments}".split(","),c=!1,b=a.length;for(var d=0;d<b;d++){try{"".trim(),c=!0}catch(e){c=!1}a[d]=c?a[d].trim():a[d]}return a.join(", ").replace("[","").replace("]","");}())`;
+
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transition: ~`(function(){ var arg = "@{transitionWebkit}" || "all 0 ease 0"; if( !/^\w*([ X])/.test(arg) ) { arg = arg.replace(/,/g,"") } return arg; })()`;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transition: ~`(function(){ var arg = "@{transitionMoz}" || "all 0 ease 0"; if( !/^\w*([ X])/.test(arg) ) { arg = arg.replace(/,/g,"") } return arg; })()`;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transition: ~`(function(){ var arg = "@{transitionMs}" || "all 0 ease 0"; if( !/^\w*([ X])/.test(arg) ) { arg = arg.replace(/,/g,"") } return arg; })()`;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transition: ~`(function(){ var arg = "@{transitionW3C}" || "all 0 ease 0"; if( !/^\w*([ X])/.test(arg) ) { arg = arg.replace(/,/g,"") } return arg; })()`; 
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+  
+  //    element{ .transition-property(width, height); }
+  .transition-property(...){
+      @transitionWebkit: ~`(function(){var a,b,c,d,e,f,g;a="@{arguments}".split(","),c=["background-size","border-","box-shadow","column","transform"],d=c.length,e=a,f=!1,b=a.length;for(var h=0;h<d;h++)for(var i=0;i<b;i++){g=new RegExp(c[h],"g");try{"".trim(),f=!0}catch(j){f=!1}a[i]=f?a[i].trim():a[i],g.test(a[i])&&(e[i]=a[i].replace(g,"-webkit-"+c[h]))}return e.join(", ").replace("[","").replace("]","");}())`;
+      @transitionMoz: ~`(function(){var a,b,c,d,e,f,g;a="@{arguments}".split(","),c=["background-size","border-","box-shadow","column","transform"],d=c.length,e=a,f=!1,b=a.length;for(var h=0;h<d;h++)for(var i=0;i<b;i++){g=new RegExp(c[h],"g");try{"".trim(),f=!0}catch(j){f=!1}a[i]=f?a[i].trim():a[i],g.test(a[i])&&(e[i]=a[i].replace(g,"-moz-"+c[h]))}return e.join(", ").replace("[","").replace("]","");}())`;
+      @transitionMs: ~`(function(){var a,b,c,d,e,f,g;a="@{arguments}".split(","),c=["transform"],d=c.length,e=a,f=!1,b=a.length;for(var h=0;h<d;h++)for(var i=0;i<b;i++){g=new RegExp(c[h],"g");try{"".trim(),f=!0}catch(j){f=!1}a[i]=f?a[i].trim():a[i],g.test(a[i])&&(e[i]=a[i].replace(g,"-ms-"+c[h]))}return e.join(", ").replace("[","").replace("]","");}())`;
+      @transitionW3C: ~`(function(){var a,b,c;a="@{arguments}".split(","),c=!1,b=a.length;for(var d=0;d<b;d++){try{"".trim(),c=!0}catch(e){c=!1}a[d]=c?a[d].trim():a[d]}return a.join(", ").replace("[","").replace("]","");}())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transition-property: ~`(function(){ var arg = "@{transitionWebkit}" || "0"; var decision = false; try{ var hasComma = arg.match(/([^ ,][a-z0-9-]*)/g); if (hasComma.length < 2) { decision = true; } } catch (e) {} if (decision === true) arg = hasComma.join(" ").replace(/,/g,""); return arg; }())`;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transition-property: ~`(function(){ var arg = "@{transitionMoz}" || "0"; var decision = false; try{ var hasComma = arg.match(/([^ ,][a-z0-9-]*)/g); if (hasComma.length < 2) { decision = true; } } catch (e) {} if (decision === true) arg = hasComma.join(" ").replace(/,/g,""); return arg; }())`;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transition-property: ~`(function(){ var arg = "@{transitionMs}" || "0"; var decision = false; try{ var hasComma = arg.match(/([^ ,][a-z0-9-]*)/g); if (hasComma.length < 2) { decision = true; } } catch (e) {} if (decision === true) arg = hasComma.join(" ").replace(/,/g,""); return arg; }())`;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transition-property: ~`(function(){ var arg = "@{transitionW3C}" || "0"; var decision = false; try{ var hasComma = arg.match(/([^ ,][a-z0-9-]*)/g); if (hasComma.length < 2) { decision = true; } } catch (e) {} if (decision === true) arg = hasComma.join(" ").replace(/,/g,""); return arg; }())`;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+     //   element{ .transition-duration(250ms); }
+  .transition-duration(...){
+      @processing: ~`(function(){ var arg = "@{arguments}" || "0"; try{ var hasComma = arg.match(/,/g).length > 1 ? true : false; } catch (e) {} if (hasComma === true) arg = arg.replace(/,/g,""); arg = arg.replace("[","").replace("]",""); return arg; }())`;
+      .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transition-duration: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transition-duration: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transition-duration: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transition-duration: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+     //   element{ .transition-timing-function(cubic-bezier(0,0,1,1)); }
+  .transition-timing-function(...){
+      @processing: ~`(function(){ var arg = "@{arguments}" || "ease"; arg = arg.replace("[","").replace("]",""); return arg; }())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transition-timing-function: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transition-timing-function: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transition-timing-function: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transition-timing-function: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }
+
+    //  element{ .transition-delay(2s); }
+  .transition-delay(...){
+    @processing: ~`(function(){ var arg = "@{arguments}" || "0"; arg = arg.replace("[","").replace("]",""); return arg; }())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-transition-delay: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-transition-delay: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-transition-delay: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        transition-delay: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+  }

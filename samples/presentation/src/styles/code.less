@@ -1,0 +1,78 @@
+@import "utils.less";
+@import "reset.less";
+.highlight-code .hn-zone.active {
+  pre > * {
+    opacity: 0.25;
+    .transition(opacity 0.5s ease-in);
+  }
+  b {
+    opacity: 1;
+  }
+}
+
+pre {
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  font-size: 1rem;
+  line-height: 1.2rem;
+  padding: 10px 0 10px 15px;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  width: 100%;
+  background-color: #e6e6e6;
+  position: relative;
+  .box-sizing(border-box);
+
+  &[data-lang]:after {
+    content: attr(data-lang);
+    background-color:#a9a9a9;
+    right: 0;
+    top: 0;
+    position: absolute;
+    font-size: 16pt;
+    color: white;
+    padding: 2px 25px;
+    text-transform: uppercase;
+  }
+}
+
+pre[data-lang="go"] {
+  color: #333;
+}
+
+code {
+  font-size: 95%;
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  color: black;
+}
+
+/* Pretty print */
+
+.prettyprint .str, /* string content */
+.prettyprint .atv { /* a markup attribute value */
+  color: #009f5d; //rgb(0, 138, 53);
+}
+.prettyprint .kwd, /* a keyword */
+.prettyprint .tag { /* a markup tag name */
+  color: rgb(0, 102, 204);
+}
+.prettyprint .com { /* a comment */
+  color: #797979; //rgb(127, 127, 127);
+  font-style: italic;
+}
+.prettyprint .lit { /* a literal value */
+  color: rgb(127, 0, 0);
+}
+.prettyprint .pun, /* punctuation, lisp open bracket, lisp close bracket */
+.prettyprint .opn,
+.prettyprint .clo {
+  color: #515151; //rgb(127, 127, 127);
+}
+.prettyprint .typ, /* a type name */
+.prettyprint .atn, /* a markup attribute name */
+.prettyprint .dec,
+.prettyprint .var { /* a declaration; a variable name */
+  color: #d94d3a; //rgb(127, 0, 127);
+}
+.prettyprint .pln {
+  color: #515151;
+}

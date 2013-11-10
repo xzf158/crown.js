@@ -1,0 +1,98 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no" />
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <title>HTML5网站开发</title>
+    <link rel="stylesheet" type="text/css" class="vminpoly" href="styles/player.css" />
+    <link rel="stylesheet" type="text/css" class="vminpoly" href="vendors/crown.player/surfaces/classic/themes/default/theme.css" />
+    <script>
+       configData = {
+            baseUrl: './'
+        };
+    </script>
+    <script id="context-data" type="text/x-data">
+        {
+        scene: {
+        name: 'player',
+        script: 'scripts/scenes/BasicScene'
+        }
+        }
+    </script>
+    <script data-main="scripts/config" src="vendors/requirejs/require.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="torso">
+            <div class="hn-scene-element scene-player" data-scene-name="player">
+                <div class="hn-zone cover-zone" data-name="cover" data-url="player.html?zone=cover">
+                    <h1>Koodoogroup</h1>
+                    <h1>努力学习，天天向上！</h1>
+                </div>
+                <div class="hn-zone title-zone" data-name="title" data-url="player.html?zone=title">
+                    <div class="caption">
+                        <h1>HTML5网站开发</h1>
+                        <h2>HTML5网站中的视频播放器的使用</h2>
+                        <p>讲稿制作：Christopher</p>
+                    </div>
+                </div>
+                <div class="hn-zone navi-zone" data-name="navi" data-url="player.html?zone=navi">
+                	<h2>我们常用的HTML5视频播放器有：</h2>
+                    <ul>
+                        <li>
+                            <a target="_blank" href="http://mediaelementjs.com/">mediaelementjs</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://www.videojs.com/">videojs</a>
+                        </li>
+                        <li>
+                            <a class="hn-zone-link" href="player.html?zone=crown-create">我们自己的播放器</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hn-zone why-zone" data-name="why" data-url="player.html?zone=why">
+                    <h2>为什么自己写一个播放器？</h2>
+                    <ul>
+                        <li>提供更丰富的编程API
+                        </li>
+                        <li>更灵活的和可定制的样式
+                        </li>
+                        <li>遇到问题能更快速的解决
+                        </li>
+                    </ul>
+                </div>
+                <div class="hn-zone create-zone" data-name="create" data-url="player.html?zone=create">
+                    <h2>如何创建</h2>
+                    <pre class="prettyprint" data-lang="javascript">
+define(['crown', 'crown.site/Scene'], function (crown, Scene) {
+    var Scheme = crown.inherit("scene.BasicScene", Scene), proto = Scheme.prototype;
+    proto.load = function ($content) {
+        var self = this, deferred = $.Deferred();
+        Scheme.uber.load.apply(this, arguments).done(function () {
+            self._allLoaded = true;
+            deferred.resolve();
+        });
+        stage.getSpinner().commit();
+        return deferred.promise();
+    };
+    proto.enter = function (paper) {
+        return Scheme.uber.enter.apply(this, arguments);
+    };
+    return Scheme;
+});</pre>
+                </div>
+                <div class="hn-zone api-zone" data-name="api" data-url="player.html?zone=api">
+                    <h2>基本的API</h2>
+                </div>
+                <div class="hn-zone structure-zone" data-name="structure" data-url="player.html?zone=structure">
+                    <h2>内部结构</h2>
+                </div>
+                <div class="hn-zone improve-zone" data-name="improve" data-url="player.html?zone=improve">
+                    <h2>有待提高的地方</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

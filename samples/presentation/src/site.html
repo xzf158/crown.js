@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no" />
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <title>An awesome requirejs app</title>
+    <link rel="stylesheet" type="text/css" class="vminpoly" href="styles/main.css" />
+    <link rel="stylesheet" type="text/css" class="vminpoly" href="vendors/crown.player/surfaces/classic/themes/default/theme.css" />
+    <script>
+    configData = {
+        baseUrl: './'
+    };
+    </script>
+    <script id="context-data" type="text/x-data">
+    {
+        scene: {
+            name: 'Video',
+            script: 'scripts/scenes/Video'
+        }
+    }
+    </script>
+    <script data-main="scripts/config" src="vendors/requirejs/require.js"></script>
+    <style>
+    video {
+        -webkit-transform:translate3d(0, 0, 0);
+    }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <header>
+            <nav>
+                <ul>
+                    <li><a class="hn-scene-link" href="index.html">Home</a>
+                    </li>
+                    <li><a class="hn-scene-link" href="video.html">Video</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div id="torso" class="video-torso">
+            <div class="hn-scene-element" data-scene-name="Video">
+                <div class="main-player"></div>
+            </div>
+        </div>
+        <footer>footer</footer>
+    </div>
+</body>
+
+</html>

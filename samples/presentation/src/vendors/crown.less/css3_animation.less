@@ -1,0 +1,210 @@
+@w3c: true; // Unprefixed W3C syntax
+@webkit: true; // Chrome 7+, Safari 5+, iOS5, Android
+@moz: true; //  Firefox 4+
+@ms: true; // IE 10+
+
+@webkitSignal: 1;
+@mozSignal: 2;
+@msSignal: 4;
+@w3cSignal: 5;
+
+//  element{ .animation(nameAnimation 2s linear alternate anim 3s linear alternate ); }
+.animation(...) {
+    @processing: ~`(function(){ var arg = "@{arguments}".replace("[","").replace("]","") || "none"; if( !/^\w*([ X])/.test(arg) ) { arg = arg.replace(/,/g,"") } return arg; })()`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-animation: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-animation: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-animation: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        animation: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+}
+
+//  element{ .animation-delay(1s); }
+//  element{ .animation-delay(750ms, 2s, 3s); } // For multiple animation-direction
+.animation-delay(...) {
+    @processing: ~`(function(){ var arg = "@{arguments}" || "0"; arg = arg.replace("[","").replace("]",""); return arg; }())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-animation-delay: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-animation-delay: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-animation-delay: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        animation-delay: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+}
+
+//  element{ .animation-direction(); }
+//  element{ .animation-direction(normal, alternate); }
+.animation-direction(...) {
+    @processing: ~`(function(){ var arg = "@{arguments}" || "normal"; arg = arg.replace("[","").replace("]",""); return arg; }())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-animation-direction: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-animation-direction: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-animation-direction: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        animation-direction: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+}
+
+//  element{ .animation-duration(2s); }
+.animation-duration(...) {
+    @processing: ~`(function(){ var arg = "@{arguments}" || "0"; arg = arg.replace("[","").replace("]",""); return arg; }())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-animation-duration: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-animation-duration: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-animation-duration: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        animation-duration: @processing;
+    }
+    
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+}
+
+//  element{ .animation-fill-mode(forwards); }
+.animation-fill-mode(...) {
+    @processing: ~`(function(){ var arg = "@{arguments}" || "none"; arg = arg.replace("[","").replace("]",""); return arg; }())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-animation-fill-mode: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-animation-fill-mode: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-animation-fill-mode: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        animation-fill-mode: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+}
+
+//  element{ .animation-timing-function(ease-in-out); }
+.animation-timing-function(...) {
+    @processing: ~`(function(){ var arg = "@{arguments}" || "ease"; arg = arg.replace("[","").replace("]",""); return arg; }())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-animation-timing-function: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-animation-timing-function: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-animation-timing-function: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        animation-timing-function: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+}
+
+//  element{ .animation-iteration-count(3); }
+.animation-iteration-count(...) {
+    @processing: ~`(function(){ var arg = "@{arguments}" || "0"; arg = arg.replace("[","").replace("]",""); return arg; }())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-animation-iteration-count: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-animation-iteration-count: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-animation-iteration-count: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        animation-iteration-count: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+}
+
+//  element{ .animation-name(myReallyCoolAnimationName); }
+.animation-name(...) {
+    @processing: ~`(function(){ var arg = "@{arguments}" || "none"; arg = arg.replace("[","").replace("]",""); return arg; }())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-animation-name: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-animation-name: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-animation-name: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        animation-name: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+}
+
+//  element{ .animation-play-state(paused); }
+.animation-play-state(...) {
+    @processing: ~`(function(){ var arg = "@{arguments}" || "running"; arg = arg.replace("[","").replace("]",""); return arg; }())`;
+    .inception (@arguments, @signal, @boolean) when (@signal = @webkitSignal) and (@boolean = true) {
+        -webkit-animation-play-state: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @mozSignal) and (@boolean = true) {
+        -moz-animation-play-state: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @msSignal) and (@boolean = true) {
+        -ms-animation-play-state: @processing;
+    }
+    .inception (@arguments, @signal, @boolean ) when (@signal = @w3cSignal) and (@boolean = true) {
+        animation-play-state: @processing;
+    }
+
+    .inception(@arguments, @webkitSignal, @webkit);
+    .inception(@arguments, @mozSignal, @moz);
+    .inception(@arguments, @msSignal, @ms);
+    .inception(@arguments, @w3cSignal, @w3c);
+}
+
