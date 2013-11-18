@@ -1,12 +1,8 @@
-define(['crown', 'jquery', 'crown.utils/Uri', 'hammer', 'history', 'crown.shim/animation'], function (crown, $, Uri) {
-    var Scheme = crown.inherit("crown.site.Scene", function () { });
+define(['hance', 'jquery', 'crown.utils/Uri', 'hammer', 'history', 'crown.shim/animation'], function (crown, $, Uri) {
+    var Scheme = hance.inherit("crown.site.Scene", function () { });
     Scheme.options = {combineZones:true, zones:null};
     var proto = Scheme.prototype;
-    crown.properties(proto, [{ name: 'activeZone', getter: true, setter: false }]);
     proto.init = function (options) {
-        // if (this.name) {
-        //     $('html').attr('data-scene', this.name);
-        // }
         this.options = $.extend({}, Scheme.options, options);
         this.name = this.options.name;
         this._combineZones = this.options.combineZones;
@@ -169,26 +165,6 @@ define(['crown', 'jquery', 'crown.utils/Uri', 'hammer', 'history', 'crown.shim/a
                 console.error('zone setActiveZone must return an Deferred object');
             }else{
                 return deferred;
-            }
-        }
-    };
-    proto.getZones = function () {
-        return this._zones;
-    };
-    proto.findZoneByName = function (zoneName) {
-        for (var i = 0, il = this._zones.length; i < il; i++) {
-            var zone = this._zones[i];
-            if (zone.name === zoneName) {
-                return zone;
-            }
-        }
-    };
-    proto.findZoneByUrl = function (url) {
-        for (var i = 0, il = this._zones.length; i < il; i++) {
-            var zone = this._zones[i];
-            //console.log(zone.url, url)
-            if (stage.getUriComparer().isUrlEqual(zone.url, url)) {
-                return zone;
             }
         }
     };

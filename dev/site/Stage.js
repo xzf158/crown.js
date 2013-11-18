@@ -1,16 +1,14 @@
-define(['crown', 'jquery', 'crown.utils/UriComparer', 'crown.site/PaperParser', 'crown.site/Curtain', 
-        'crown.ui/Spinner', 'crown.site/CacheManager', 'crown.site/Scene', 'history', 
-        'greensock/TweenMax', 'greensock/plugins/ScrollToPlugin', 'crown.shim/animation'
-    ], function (crown, $, UriComparer, PaperParser, Curtain, Spinner, CacheManager) {
-    var Scheme = crown.inherit("crown.site.Stage", function () { });
+define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/PaperParser', 'crown/site/Curtain',
+        'crown/ui/Spinner', 'utils/CacheManager', 'crown/site/Zone', 'history'],
+    function (hance, $, UriComparer, PaperParser, Curtain, Spinner, CacheManager) {
+    var Scheme = hance.inherit("crown.site.Stage", function () { });
     Scheme.options = {uriComparer: new UriComparer(), 
         paperParser: new PaperParser(), 
         cacheManager: new CacheManager(),
         cacheScenes:false,
-        enableHistory:true,
-        enableScroll:false};
+        enableHistory:true};
     var proto = Scheme.prototype;
-    crown.properties(proto, [{ name: 'curtain', getter: true, setter: true },
+    hance.properties(proto, [{ name: 'curtain', getter: true, setter: true },
         { name: 'scene', getter: true, setter: false },
         { name: 'spinner', getter: true, setter: true },
         { name: 'uriComparer', getter: true, setter: false },
@@ -23,6 +21,7 @@ define(['crown', 'jquery', 'crown.utils/UriComparer', 'crown.site/PaperParser', 
         this.$body = $(document.body);
         this.options = $.extend({}, Scheme.options, options);
         this.cache = { window: { width: -1, height: -1 }, document: { width: -1, height: -1 } };
+        this._domHelper = new DomHelper();
         this._cacheManager = this.options.cacheManager;
         this._cacheScenes = this.options.cacheScenes;
         this._scrollTop = 0;
@@ -31,7 +30,6 @@ define(['crown', 'jquery', 'crown.utils/UriComparer', 'crown.site/PaperParser', 
         this._paperParser = this.options.paperParser;
         this._spinner = this.options.spinner;
         this._enableHistory = this.options.enableHistory;
-        this._enableScroll = this.options.enableScroll;
 
         window.stage = this;
 
@@ -83,37 +81,8 @@ define(['crown', 'jquery', 'crown.utils/UriComparer', 'crown.site/PaperParser', 
     proto.getInitialPageTitle = function(){
         return this._initialPageTitle;
     };
-    proto.processScroll = function () {
-        var self = this, neverStopForAutoPoped = true;
-        this.$window.on('scroll.stage', function (e) {
-            if (self.stateAutoPoped && self.$window.scrollTop() !== self._scrollTop && neverStopForAutoPoped) {
-                self.$window.scrollTop(self._scrollTop);
-                neverStopForAutoPoped = false;
-                return;
-            }
-            self.stateAutoPoped = false;
-            self._scrollTop = self.$window.scrollTop();
-            var zones = self._scene.getZones();
-            for (var i in zones) {
-                var zone = zones[i],
-                    $element = zone.$element;
-                if ($element && $element.length > 0) {
-                    var eleOffset = $element.offset(),
-                        eleHeight = $element.height(),
-                        winScrollTop = self.$window.scrollTop(),
-                        winHeight = self.cache.window.height;
-                    if (eleOffset.top - winScrollTop - winHeight * 0.5 <= 0 && eleHeight + eleOffset.top - winScrollTop - winHeight * 0.5 >= 0) {
-                        if (!self._uriComparer.isUrlEqual(zone.url, self.currentUrl)) {
-                            if (self._enableHistory) {
-                                History.pushState({ event: 'scroll' }, zone.title, zone.url);
-                            } else {
-                                self.fakeStateChange(zone.url);
-                            }
-                        }
-                    }
-                }
-            }
-        });
+    proto.getZoneScript = function(name){
+        return './scripts/zones/' + name;
     };
     proto.processResize = function () {
         var self = this;
@@ -141,24 +110,6 @@ define(['crown', 'jquery', 'crown.utils/UriComparer', 'crown.site/PaperParser', 
         };
         this.resizeIntervalId = setInterval(resizeHandler, 100);
         resizeHandler();
-    };
-    proto.scrollPage = function (offset, preventStateChange, duration) {
-        var deferred = $.Deferred(), self = this;
-        if (preventStateChange) {
-            this.$window.off('scroll.stage');
-        }
-        TweenMax.killTweensOf(window);
-        duration = duration === undefined ? 0.5 : duration;
-        TweenMax.to(window, duration, {scrollTo: { x: offset.left||0, y: offset.top||0 }, onComplete: function () {
-                self.scrollingInfo = null;
-                if (preventStateChange && self._enableScroll) {
-                    self.processScroll();
-                }
-                self._scrollTop = self.$window.scrollTop();
-                deferred.resolve();
-            }
-        });
-        return deferred.promise();
     };
     proto.linkClickHandler = function (target, event) {
         var $element = $(target), href = $element.attr('href') || $element.data('href');
@@ -207,7 +158,7 @@ define(['crown', 'jquery', 'crown.utils/UriComparer', 'crown.site/PaperParser', 
         //console.log('=======update link,', url)
         $('.hn-scene-link,.hn-zone-link').each(function () {
             var $this = $(this),
-                $item = $this.closest('.hn-navi-item'),
+                $item = $this.closest('.cw-navi-item'),
                 href = $this.attr('href') || $this.data('href'),
                 compareValue = self._uriComparer.compareUrl(href, url);
             if ($this.hasClass('hn-zone-link')) {
@@ -224,6 +175,26 @@ define(['crown', 'jquery', 'crown.utils/UriComparer', 'crown.site/PaperParser', 
                 }
             }
         });
+    };
+    proto.getZones = function () {
+        return this._zones;
+    };
+    proto.findZoneByName = function (zoneName) {
+        for (var i = 0, il = this._zones.length; i < il; i++) {
+            var zone = this._zones[i];
+            if (zone.name === zoneName) {
+                return zone;
+            }
+        }
+    };
+    proto.findZoneByUrl = function (url) {
+        for (var i = 0, il = this._zones.length; i < il; i++) {
+            var zone = this._zones[i];
+            //console.log(zone.url, url)
+            if (stage.getUriComparer().isUrlEqual(zone.url, url)) {
+                return zone;
+            }
+        }
     };
     proto.fakeStateChange = function (newUrl) {
         this.$this.trigger($.Event('address', { state: History.getState(), oldUrl: this.currentUrl, newUrl: newUrl }));
@@ -246,9 +217,9 @@ define(['crown', 'jquery', 'crown.utils/UriComparer', 'crown.site/PaperParser', 
     };
     proto.state_action_zone = function (state) {
         var url = state.url,
-            zone = this._scene.findZoneByUrl(url);
+            zone = this.findZoneByUrl(url);
         if (zone) {
-            this._scene.gotoZone(zone);
+            this.gotoZone(zone);
             if (!this._enableHistory) {
                 this.$document.attr('title', zone.title);
             }

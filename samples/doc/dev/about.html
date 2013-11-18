@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no" />
     <link href="favicon.png" rel="shortcut icon" type="image/png" />
-    <title>Home page</title>
+    <title>About page</title>
     <link rel="stylesheet" type="text/css" class="cssfx vminpoly" href="styles/main.css" />
     <script>
     configData = {
@@ -15,8 +15,8 @@
     <script id="context-data" type="text/x-data">
     {
         scene: {
-            name: 'index',
-            script: 'scripts/scenes/Index'
+            name: 'about',
+            script: 'scripts/scenes/About'
         }
     }
     </script>
@@ -28,20 +28,20 @@
         <header>
             <nav>
                 <ul>
-                    <li class="cw-navi-item"><a cw-zone-link href="index.html">Home</a>
+                    <li class="hn-navi-item"><a class="hn-scene-link" href="index.html">Home</a>
                     </li>
-                    <li class="cw-navi-item"><a class="cw-zone-link" href="about.html">About</a>
+                    <li class="hn-navi-item"><a class="hn-scene-link" href="about.html">About</a>
                     </li>
-                    <li class="cw-navi-item"><a class="cw-zone-link" href="showcase.html">Showcase</a>
+                    <li class="hn-navi-item"><a class="hn-scene-link" href="showcase.html">Showcase</a>
                     </li>
-                    <li class="cw-navi-item"><a class="cw-zone-link" href="contact.html">Contact</a>
+                    <li class="hn-navi-item"><a class="hn-scene-link" href="contact.html">Contact</a>
                     </li>
                 </ul>
             </nav>
         </header>
         <div id="torso">
-            <div class="cw-zone zone-index" cw-name="index">
-                Home page<br>Home page<br>Home page<br>Home page<br>Home page<br>Home page<br>
+            <div class="hn-scene-element scene-about" data-scene-name="about">
+                About page<br>About page<br>About page<br>Home page<br>About page<br>About page<br>
             </div>
         </div>
         <footer>

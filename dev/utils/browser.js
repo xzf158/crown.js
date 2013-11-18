@@ -27,7 +27,6 @@
         opera = /opera/i.test(ua) || /opr/i.test(ua),
         firefox = /firefox/i.test(ua),
         gecko = /gecko\//i.test(ua),
-        seamonkey = /seamonkey\//i.test(ua),
         webkitVersion = /version\/(\d+(\.\d+)?)/i,
         firefoxVersion = /firefox\/(\d+(\.\d+)?)/i,
         o;
@@ -115,12 +114,6 @@
                 o.firefox = t;
             }
             return o;
-        }
-        if (seamonkey) {
-            return {
-                seamonkey: t,
-                version: ua.match(/seamonkey\/(\d+(\.\d+)?)/i)[1]
-            };
         }
         return {};
     }
