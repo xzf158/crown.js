@@ -4,10 +4,17 @@ define(['crown', 'jquery', 'domReady!'], function (crown, $) {
     crown.properties(proto, [
     ]);
     proto.init = function (options) {
+        this._queue = [];
     };
-    proto.shift = function (paper, oldScene, newScene, state) {
-        oldScene.exit();
-        newScene.enter(paper);
+    proto.push = function(zone, phase){
+        this._queue.push({zone:zone, phase:phase});
+    };
+    proto.build = function(){
+
+    };
+    proto.shift = function () {
     };
     return Scheme;
 });
+
+//{zone:'zonename', delay:10, phase:'enter', after:{zone:'zname', phase:'enter'}}

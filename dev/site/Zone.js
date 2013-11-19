@@ -1,79 +1,40 @@
 define(['hance', 'jquery', 'crown.utils/Uri', 'hammer', 'history', 'crown.shim/animation'], function (crown, $, Uri) {
-    var Scheme = hance.inherit("crown.site.Scene", function () { });
+    var Scheme = hance.inherit("crown.site.Scene", function () { }),
+        proto = Scheme.prototype;
     Scheme.options = {combineZones:true, zones:null};
-    var proto = Scheme.prototype;
+    hance.properties(proto, [{ name: 'name', getter: true, setter: true },
+        { name: 'childZones', getter: true, setter: false },
+        { name: 'parentZone', getter: true, setter: true }]);
     proto.init = function (options) {
         this.options = $.extend({}, Scheme.options, options);
-        this.name = this.options.name;
-        this._combineZones = this.options.combineZones;
-        this._zones = this.options.zones;
+        this._name = this.options.name;
+        this._childZones = [];
+        this._phases = ['load','enter','abort','exit'];
     };
-    proto.insertHtml = function (html) {
-        for(var i = 0, il = html.length; i < il; i++){
-            var item = html[i];
-            $(item.content).appendTo(item.container);
+    proto.load = function () {
+    };
+    proto.enter = function () {
+        return $.Deferred().resolve();
+    };
+    proto.sync = function(element){
+
+    };
+    proto.abort = function () {
+
+    };
+    proto.exit = function () {
+        //console.warn('you must overwrite this method!');
+        this.$element.remove();
+        this.dispose();
+        return $.Deferred().resolve();
+    };
+    proto.layout = function () {
+        for(var i = 0, il = this._childZones.length; i < il; i++){
+            this._childZones.layout();
         }
     };
-    proto.load = function (paper) {
-        if (paper) {
-            this.insertHtml(paper.html);
-        }
-        var deferreds = [], self = this;
-        if (this._zones == null){
-            if(paper && paper.data && paper.data.zones){
-                this._zones = paper.data.zones;
-            }else if (this.name){
-                this._zones = [];
-                $('.hn-scene-element[data-scene-name=' + this.name + '] .hn-zone').each(function(index){
-                    var $this = $(this), 
-                        order = $this.data('order'), 
-                        name = $this.data('name'), 
-                        url = $this.data('url');
-                    if (order === undefined){
-                        order = index;
-                    }
-                    if (url) {
-                        url = Uri.absolute(url);
-                    }
-                    self._zones.push({name:name, container:$this.parent()[0], order:order, useCache: true, url:url});
-                });
-            }
-        }
-        for (var i = 0, il = this._zones.length; i < il; i++) {
-            var zone = this._zones[i];
-            if (zone.order === undefined) {
-                zone.order = i;
-            }
-            if (zone.url === undefined) {
-                var $link = $('.hn-zone-link[data-zone-name=' + zone.name + ']');
-                zone.url = Uri.absolute($link.attr('href') || $link.data('href'));
-                if (!zone.url) {
-                    console.error('Can not get zone url from link. zone name:', zone.name);
-                }
-            }
-            zone.$element = $('.hn-zone[data-name=' + zone.name + ']');
-            zone.$container = $(zone.container) ||zone.$element.data('parent-container');
-            zone.loaded = zone.$element.length > 0;
-            if (zone.loaded) {
-                zone.$element.attr('data-order', zone.order);
-                if (zone.title === undefined) {
-                    zone.title = $('head>title').html();
-                }
-            } else {
-                if (this._combineZones) {
-                    deferreds.push(this.loadZone(zone));
-                }
-            }
-        }
-        if (this._combineZones) {
-            stage.getSpinner().watch(deferreds);
-            return $.when.apply(null, deferreds).then(function () {
-                stage.updateLinks();
-            });
-        } else {
-            stage.updateLinks();
-            return $.Deferred().resolve();
-        }
+    proto.dispose = function () {
+        this._zones = null;
     };
     proto.getZoneElement = function (html) {
         return html[0].element;
@@ -167,33 +128,6 @@ define(['hance', 'jquery', 'crown.utils/Uri', 'hammer', 'history', 'crown.shim/a
                 return deferred;
             }
         }
-    };
-    proto.enter = function (paper) {
-        var zone = this.findZoneByUrl(location.href);
-        if (zone == null && this._zones.length > 0) {
-            console.log('======do no find zone by url, use default.');
-            zone = this._zones[0];
-        }
-        console.log('enter goto zone:', zone);
-        if (zone) {
-            return this.gotoZone(zone, 'enter');
-        } 
-        return $.Deferred().resolve();
-    };
-    proto.abort = function () {
-
-    };
-    proto.exit = function () {
-        //console.warn('you must overwrite this method!');
-        $('[data-scene-name=' + this.name +']').remove();
-        this.dispose();
-        return $.Deferred().resolve();
-    };
-    proto.layout = function () {
-
-    };
-    proto.dispose = function () {
-        this._zones = null;
     };
     return Scheme;
 });

@@ -21,10 +21,8 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/PaperParser', 
         this.$body = $(document.body);
         this.options = $.extend({}, Scheme.options, options);
         this.cache = { window: { width: -1, height: -1 }, document: { width: -1, height: -1 } };
-        this._domHelper = new DomHelper();
         this._cacheManager = this.options.cacheManager;
         this._cacheScenes = this.options.cacheScenes;
-        this._scrollTop = 0;
         this._initialPageTitle = $('head>title').html();
         this._uriComparer = this.options.uriComparer;
         this._paperParser = this.options.paperParser;
@@ -48,28 +46,11 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/PaperParser', 
             }
             self._scene.load().done(function () {
                 self._scene.enter().done(function () {
-                    if (self._enableScroll){
-                        self.processScroll();
-                    }
                     History.Adapter.bind(window, 'statechange', function (e) {
                         self.handleStateChange(e);
                     });
                 });
             });
-        });
-
-        //safari and chrome popsate first time and it will occupy scrolling page.
-        self.stateAutoPoped = false;
-        this.$window.one('popstate', function (e) {
-            if (!e.originalEvent.state) {
-                e.originalEvent.preventDefault();
-                e.originalEvent.stopImmediatePropagation();
-                e.originalEvent.stopPropagation();
-                self.stateAutoPoped = true;
-                //console.log('++++++====self._scrollTop:', self._scrollTop);
-                self.$window.scrollTop(self._scrollTop);
-                return false;
-            }
         });
     };
     proto.pushPaperToCache = function (url, paper) {
@@ -156,12 +137,13 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/PaperParser', 
     proto.updateLinks = function (url) {
         var self = this, url = url || this.currentUrl;
         //console.log('=======update link,', url)
-        $('.hn-scene-link,.hn-zone-link').each(function () {
+        $('.hn-zone-link').each(function () {
             var $this = $(this),
                 $item = $this.closest('.cw-navi-item'),
+                zoneName = $this.attr('cw-zone-name'),
                 href = $this.attr('href') || $this.data('href'),
                 compareValue = self._uriComparer.compareUrl(href, url);
-            if ($this.hasClass('hn-zone-link')) {
+            if ($this.hasClass('cw-zone-link')) {
                 if ($item.length > 0) {
                     $item.toggleClass('active', compareValue === 0);
                 } else {
@@ -216,16 +198,6 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/PaperParser', 
         this.currentUrl = newUrl;
     };
     proto.state_action_zone = function (state) {
-        var url = state.url,
-            zone = this.findZoneByUrl(url);
-        if (zone) {
-            this.gotoZone(zone);
-            if (!this._enableHistory) {
-                this.$document.attr('title', zone.title);
-            }
-        }
-    };
-    proto.state_action_scene = function (state) {
         var self = this, 
             url = state.url, 
             doneFun = function (paper) {
@@ -258,6 +230,19 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/PaperParser', 
             });
             this.getSpinner().watch([deferred]);
         }
+    };
+    proto.getCWAttr = function($element, attrName){
+        var attrs = $element.attr(), attrValue = attrs['cw-' + attrName];
+        if (attrValue !== undefined){
+            return attrValue;
+        }
+        attrValue = attrs['data-cw-'+attrName];
+        if (attrValue !== undefined){
+            return attrValue;
+        }
+    };
+    proto.hasCWProp = function($element, propName){
+        return $element.prop('cw-' + propName) || $element.hasClass('cw-' + propName);
     };
     proto.getCurtain = function () {
         if (this._curtain === undefined) {
