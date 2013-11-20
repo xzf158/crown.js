@@ -83,29 +83,6 @@ module.exports = function (grunt) {
         autotest: {
             crown: 'karma-crown.conf.js'
         },
-        concat: {
-            options: {
-                banner: '<%= banner %>',
-                stripBanners: true
-            },
-            dist: {
-                src: ['dev/vendors/requirejs/require.js', '<%= concat.dist.dest %>'],
-                dest: 'dist/scripts/require.js'
-            }
-        },
-        uglify: {
-            options: {
-                banner: '',
-                sourceMap: 'dist/scripts/require-map.js',
-                sourceMapRoot: './',
-                sourceMappingURL: 'require-map.js',
-                sourceMapPrefix: 'dist/scripts/'
-            },
-            dist: {
-                src: '<%= concat.dist.dest %>',
-                dest: 'dist/scripts/require.min.js'
-            }
-        },
         jshint: {
             gruntfile: {
                 options: {
@@ -113,17 +90,11 @@ module.exports = function (grunt) {
                 },
                 src: 'Gruntfile.js'
             },
-            devScript: {
+            dev: {
                 options: {
-                    jshintrc: 'dev/scripts/.jshintrc'
+                    jshintrc: 'dev/.jshintrc'
                 },
-                src: ['dev/scripts/**/*.js']
-            },
-            devHorn: {
-                options: {
-                    jshintrc: 'dev/vendors/.jshintrc'
-                },
-                src: ['dev/vendors/crown*/**/*.js']
+                src: ['dev/**/*.js']
             }//,
             // test: {
             //     options: {
@@ -135,90 +106,30 @@ module.exports = function (grunt) {
         less: {
             compile: {
                 options: {
-                    paths: ['dev/styles/'],
+                    paths: ['dev/'],
                     compress: true
                 },
                 files: [{
                     expand: true,
-                    cwd: 'dev/styles',
+                    cwd: 'dev',
                     src: ['**/*.less'],
-                    dest: 'dev/styles',
+                    dest: 'dev',
                     ext: '.css'
                 }]
             }
         },
         watch: {
             script: {
-                files: ['dev/scripts/**/*.js'],
+                files: ['dev/**/*.js'],
                 tasks: ['jshint:dev']
-            },
-            compass: {
-                files: ['dev/styles/**/*.less'],
-                tasks: ['less']
             },
             // test: {
             //   files: 'test/**/*.js',
             //   tasks: ['jshint:test', 'qunit']
             // }
-        },
-        requirejs: {
-            compile: {
-                options: {
-                    baseUrl: 'dev/',
-                    name: 'scripts/config',
-                    mainConfigFile: 'dev/scripts/config.js',
-                    out: '<%= concat.dist.dest %>',
-                    optimize: 'none'
-                }
-            }
-        },
-        imagemin: { // Task
-            dist: { // Target
-                options: { // Target options
-                    optimizationLevel: 3
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'dev/',
-                    src: ['**/*.png', '**/*.jpg'],
-                    dest: 'dist/'
-                }]
-            }
-        },
-        htmlmin: {
-            dist: {
-                options: {
-                    /*removeCommentsFromCDATA: true,
-          // https://github.com/yeoman/grunt-usemin/issues/44
-          //collapseWhitespace: true,
-          collapseBooleanAttributes: true,
-          removeAttributeQuotes: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeOptionalTags: true*/
-                },
-                files: [{
-                    expand: true,
-                    cwd: 'dev',
-                    src: ['**/*.html', '!**/vendors/**/*.html'],
-                    dest: 'dist/'
-                }]
-            }
-        },
-        copy: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'dev/',
-                    src: ['**', '!**/images/*.*', '!**/*.html', '!**/*.less', '!scripts/**/*.js', 'scripts/**/*.min.js'],
-                    dest: 'dist/'
-                }]
-            }
         }
     });
 
-    // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -227,10 +138,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    //grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-jasmine-node');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-regex-replace');
