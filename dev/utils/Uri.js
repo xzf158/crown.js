@@ -1,7 +1,7 @@
 //http://objectmix.com/javascript/352627-relative-url-absolute-url.html
 //http://blog.stevenlevithan.com/archives/parseuri
-define(['jquery', 'crown'], function ($, crown) {
-    var Scheme = crown.inherit('crown.utils.Uri', function () { });
+define(['jquery', 'hance'], function ($, hance) {
+    var Scheme = hance.inherit('crown.utils.Uri', function () { });
     Scheme.combine = function () {
         var path = '';
         for (var i in arguments) {
@@ -87,7 +87,7 @@ define(['jquery', 'crown'], function ($, crown) {
         }
     };
     var proto = Scheme.prototype;
-    crown.properties(proto, [{ name: 'url', getter: true, setter: true },
+    hance.properties(proto, [{ name: 'url', getter: true, setter: true },
     { name: 'protocol', getter: true, setter: true }, 
     { name: 'authority', getter: true, setter: true }, 
     { name: 'account', getter: true, setter: true }, 

@@ -1,10 +1,10 @@
-define(['jquery', 'crown', 'crown.player/utils', 'crown.player/MediaEssence', 'crown.player/FlashEssence'], function ($, crown, utils, MediaEssence, FlashEssence) {
-    var Scheme = crown.inherit('crown.player.MediaPlayer', function () { });
+define(['jquery', 'hance', 'crown/player/utils', 'crown/player/MediaEssence', 'crown/player/FlashEssence'], function ($, hance, utils, MediaEssence, FlashEssence) {
+    var Scheme = hance.inherit('crown.player.MediaPlayer', function () { });
     Scheme.playerIndex = 0;
     Scheme.essences = [MediaEssence, FlashEssence];
     var proto = Scheme.prototype;
-    crown.properties(proto, [{ name: 'sources', getter: true, setter: true }]);
-    crown.properties(proto, [{ name: 'isFullScreen', getter: true, setter: true }]);
+    hance.properties(proto, [{ name: 'sources', getter: true, setter: true }]);
+    hance.properties(proto, [{ name: 'isFullScreen', getter: true, setter: true }]);
     Scheme.options = {
         poster: "",
         surface: "classic",
@@ -193,7 +193,7 @@ define(['jquery', 'crown', 'crown.player/utils', 'crown.player/MediaEssence', 'c
         var afterEssenceBuilt = function (e) {
             if (self.options.surface && this.surface === undefined) {
                 if (typeof self.options.surface === 'string') {
-                    utils.require(['crown.player/surfaces/' + self.options.surface + '/surface'], function (Surface) {
+                    utils.require(['crown/player/surfaces/' + self.options.surface + '/surface'], function (Surface) {
                         self.surface = new Surface(self, self.options);
                         self.$node.addClass(self.surface.cssClass).addClass('hnp-theme-' + this.options.theme);
                         if (e.fail) {

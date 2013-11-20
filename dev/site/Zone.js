@@ -1,4 +1,4 @@
-define(['hance', 'jquery', 'crown.utils/Uri', 'hammer', 'history', 'crown.shim/animation'], function (crown, $, Uri) {
+define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/animation'], function (hance, $, Uri) {
     var Scheme = hance.inherit("crown.site.Scene", function () { }),
         proto = Scheme.prototype;
     Scheme.options = {combineZones:true, zones:null};

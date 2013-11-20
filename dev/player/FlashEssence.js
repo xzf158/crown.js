@@ -1,5 +1,5 @@
-define(['require', 'jquery', 'crown', 'crown.player/utils', 'swfobject'], function (require, $, crown, utils, swfobject) {
-    var Scheme = crown.inherit('crown.player.FlashEssence', function () { });
+define(['require', 'jquery', 'hance', 'crown/player/utils', 'swfobject'], function (require, $, hance, utils, swfobject) {
+    var Scheme = hance.inherit('crown.player.FlashEssence', function () { });
     Scheme.supportTypes = ['video/mp4', 'video/m4v', 'video/mov', 'video/flv', 'video/rtmp', 'video/x-flv', 'audio/flv', 'audio/x-flv', 'audio/mp3', 'audio/m4a', 'audio/mpeg', 'video/youtube', 'video/x-youtube'];
     Scheme._instances = [];
     Scheme.fireMediaEvent = function (id, eventName, values) {

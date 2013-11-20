@@ -1,7 +1,7 @@
-define(['crown'], function (crown) {
-    var Scheme = crown.inherit("crown.site.CacheManager", function () { });
+define(['hance'], function (hance) {
+    var Scheme = hance.inherit("crown.site.CacheManager", function () { });
     var proto = Scheme.prototype;
-    crown.properties(proto, [
+    hance.properties(proto, [
     ]);
     proto.init = function (options) {
         this._cachedObjects = {};

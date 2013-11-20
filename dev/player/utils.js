@@ -1,6 +1,6 @@
-define(['jquery', 'crown'], function ($, crown) {
+define(['jquery', 'hance'], function ($, hance) {
     var ua = window.navigator.userAgent.toLowerCase();
-    var Scheme = crown.inherit('crown.player.utils', {
+    var Scheme = hance.inherit('crown.player.utils', {
         require:window.require||window.curl,
         platform: {
             isiPad: ua.match(/ipad/i),

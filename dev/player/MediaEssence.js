@@ -1,53 +1,44 @@
-define(['jquery', 'crown', 'crown.player/utils'], function($, crown, utils) {
-    var Scheme = crown.inherit('crown.player.MediaEssence', function() {});
+define(['jquery', 'hance', 'crown/player/utils'], function($, crown, utils) {
+    var Scheme = hance.inherit('crown.player.MediaEssence', function() {});
     //Scheme.supportTypes = ['video/mp4', 'video/webm', 'video/ogg', 'video/wmv'];
     var proto = Scheme.prototype;
-    crown.properties(proto, [{
+    hance.properties(proto, [{
         name: 'isBuilt',
         getter: true,
         setter: false
-    }]);
-    crown.properties(proto, [{
+    },{
         name: 'volume',
         getter: true,
         setter: true
-    }]);
-    crown.properties(proto, [{
+    },{
         name: 'isMuted',
         getter: true,
         setter: false
-    }]);
-    crown.properties(proto, [{
+    },{
         name: 'isPaused',
         getter: true,
         setter: false
-    }]);
-    crown.properties(proto, [{
+    },{
         name: 'isEnded',
         getter: true,
         setter: false
-    }]);
-    crown.properties(proto, [{
+    },{
         name: 'isRewinding',
         getter: true,
         setter: false
-    }]);
-    crown.properties(proto, [{
+    },{
         name: 'isFullScreen',
         getter: true,
         setter: true
-    }]);
-    crown.properties(proto, [{
+    },{
         name: 'isVideo',
         getter: true,
         setter: false
-    }]);
-    crown.properties(proto, [{
+    },{
         name: 'isAudio',
         getter: true,
         setter: false
-    }]);
-    crown.properties(proto, [{
+    },{
         name: 'currentTime',
         getter: true,
         setter: true

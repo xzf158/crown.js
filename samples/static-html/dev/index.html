@@ -8,17 +8,9 @@
     <title>Home page</title>
     <link rel="stylesheet" type="text/css" class="cssfx vminpoly" href="styles/main.css" />
     <script>
-    configData = {
-        baseUrl: './'
-    };
-    </script>
-    <script id="context-data" type="text/x-data">
-    {
-        scene: {
-            name: 'index',
-            script: 'scripts/scenes/Index'
+        window.metadata = {
+            baseUrl: './'
         }
-    }
     </script>
     <script data-main="scripts/config" src="vendors/requirejs/require.js"></script>
 </head>
@@ -28,19 +20,19 @@
         <header>
             <nav>
                 <ul>
-                    <li class="cw-navi-item"><a cw-zone-link href="index.html">Home</a>
+                    <li class="cw-zone-link" cw-zone-name="index"><a href="index.html">Home</a>
                     </li>
-                    <li class="cw-navi-item"><a class="cw-zone-link" href="about.html">About</a>
+                    <li class="cw-zone-link" cw-zone-name="about"><a href="about.html">About</a>
                     </li>
-                    <li class="cw-navi-item"><a class="cw-zone-link" href="showcase.html">Showcase</a>
+                    <li class="cw-zone-link" cw-zone-name="showcase"><a href="showcase.html">Showcase</a>
                     </li>
-                    <li class="cw-navi-item"><a class="cw-zone-link" href="contact.html">Contact</a>
+                    <li class="cw-zone-link" cw-zone-name="contact"><a href="contact.html">Contact</a>
                     </li>
                 </ul>
             </nav>
         </header>
         <div id="torso">
-            <div class="cw-zone zone-index" cw-name="index">
+            <div class="cw-zone zone-index" cw-name="index" cw-index="0">
                 Home page<br>Home page<br>Home page<br>Home page<br>Home page<br>Home page<br>
             </div>
         </div>

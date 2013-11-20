@@ -1,16 +1,16 @@
-define(['crown'], function(crown) {
-    describe('test crown inhert', function() {
-    	var GrandClass = crown.inherit("GrandClass", function(){});
+define(['hance'], function(hance) {
+    describe('test hance inhert', function() {
+    	var GrandClass = hance.inherit("GrandClass", function(){});
     	GrandClass.prototype.lastName = "last name";//this one not be override;
     	GrandClass.prototype.firstName = "grand first name";
     	GrandClass.prototype.init = function(){};
     	spyOn(GrandClass.prototype, 'init').andCallThrough();
 
-    	var ParentClass = crown.inherit("ParentClass", GrandClass);
+    	var ParentClass = hance.inherit("ParentClass", GrandClass);
     	ParentClass.prototype.firstName = "father first name";
     	ParentClass.prototype.init = function(){};
 
-    	var ChildClass = crown.inherit("ChildClass", ParentClass);
+    	var ChildClass = hance.inherit("ChildClass", ParentClass);
     	ChildClass.prototype.firstName = "child first name";
     	ChildClass.prototype.init = function(){};
 

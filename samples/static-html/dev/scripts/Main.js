@@ -1,5 +1,6 @@
-define(['jquery', 'crown', 'crown.site/Stage', 'crown.ui/Spinner', 'scripts/SpinnerArtist', 'scripts/Dialog', 'crown.ui/Picture', 'crown.browser', 'modernizr'], function ($, crown, Stage, Spinner, SpinnerArtist, Dialog, Picture, browser) {
-var Scheme = crown.inherit("SiteStage", Stage);
+define(['jquery', 'hance', 'crown/site/Stage', 'crown/ui/Spinner', 'scripts/SpinnerArtist', 'scripts/Dialog', 'crown/ui/Picture', 'crown/utils/browser', 'modernizr'],
+    function ($, hance, Stage, Spinner, SpinnerArtist, Dialog, Picture, browser) {
+var Scheme = hance.inherit("SiteStage", Stage);
     Scheme.options = { };
     var proto = Scheme.prototype;
     proto.init = function () {

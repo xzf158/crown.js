@@ -1,5 +1,5 @@
-define(['jquery', 'crown', 'crown.player/utils'], function ($, crown, utils) {
-    var Scheme = crown.inherit('crown.player.surfaces.Classic', function () { });
+define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
+    var Scheme = hance.inherit('crown.player.surfaces.Classic', function () { });
     var proto = Scheme.prototype;
     proto.init = function (player, options) {
         this.cssClass = 'hnp-surface-classic' + (utils.platform.supportsSvg ? ' detect-svg' : ' detect-non-svg') + (utils.platform.hasTouch ? ' detect-touch' : ' detect-non-touch');

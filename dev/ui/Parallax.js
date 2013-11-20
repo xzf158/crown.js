@@ -1,4 +1,4 @@
-define(['crown', 'jquery', 'greensock/TweenMax'], function (crown, $) {
+define(['hance', 'jquery', 'greensock/TweenMax'], function (hance, $) {
     var Scheme = crown.inherit("crown.ui.Parallax", function () { });
 
     var proto = Scheme.prototype;

@@ -1,5 +1,5 @@
-define(['crown'], function (crown) {
-    var Scheme = crown.inherit("crown.ui.utils", {});
+define(['hance'], function (hance) {
+    var Scheme = hance.inherit("crown.ui.utils", {});
     //Scheme.disposeControl = function (control, name) {
     //    if (window.outlets !== undefined && window.outlets[control.outlet] == control) {
     //        window.outlets[control.outlet] = null;

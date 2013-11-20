@@ -1,5 +1,5 @@
-define(['crown', 'crown.ui/utils', 'jquery'], function (crown, utils, $) {
-    var Scheme = crown.inherit("crown.ui.Picture", function () { });
+define(['hance', 'crown/ui/utils', 'jquery'], function (hance, utils, $) {
+    var Scheme = hance.inherit("crown.ui.Picture", function () { });
     Scheme.options = { autoLoad: true, renderMode: 'canvas' };
     Scheme.cssClassName = 'hn-picture';
     Scheme._instances = [];
@@ -39,7 +39,7 @@ define(['crown', 'crown.ui/utils', 'jquery'], function (crown, utils, $) {
     };
 
     var proto = Scheme.prototype;
-    crown.properties(proto, [{ name: 'element', getter: true, setter: false },
+    hance.properties(proto, [{ name: 'element', getter: true, setter: false },
     { name: 'options', getter: true, setter: false },
     { name: 'loaded', getter: true, setter: false }
     ]);

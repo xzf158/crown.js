@@ -1,5 +1,5 @@
-define(['crown'], function (crown, $) {
-    var Scheme = crown.inherit("crown.site.PageRuleParser", function () { });
+define(['hance'], function (hance, $) {
+    var Scheme = hance.inherit("crown.site.PageRuleParser", function () { });
     var proto = Scheme.prototype;
     proto.init = function (vars) {
         this._vars = {};

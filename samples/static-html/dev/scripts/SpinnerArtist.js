@@ -1,5 +1,5 @@
-define(['crown', 'jquery', 'crown.utils/Uri', 'greensock/TweenMax'], function (crown, $, Uri) {
-    var Scheme = crown.inherit('site.Spinner.Artist', function () { });
+define(['hance', 'jquery', 'crown/utils/Uri', 'greensock/TweenMax'], function (hance, $, Uri) {
+    var Scheme = hance.inherit('site.Spinner.Artist', function () { });
     var proto = Scheme.prototype;
     proto.init = function (element, options) {
         this._element = $(element);

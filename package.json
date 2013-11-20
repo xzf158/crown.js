@@ -8,10 +8,16 @@
   "scripts": {
     "test": "grunt jasmine"
   },
+  "homepage": "https://github.com/acroidea/crown.js",
+  "bugs": "https://github.com/acroidea/crown.js/issues",
   "author": {
-    "name": "chrislearn",
-    "email": "chris@acroidea.com",
-    "url": "http://www.acroidea.com/"
+    "name": "acroidea",
+    "email": "github@acroidea.com",
+    "url": "https://github.com/chrislearn"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acroidea/crown.js.git"
   },
   "licenses": [
     {

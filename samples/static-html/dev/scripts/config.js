@@ -14,43 +14,26 @@
     while (method = methods.pop()) con[method] = con[method] || dummy;
 })(window.console = window.console || {});
 
-document.cancelFullScreen = document.webkitCancelFullScreen ||
-                    document.mozCancelFullScreen;
-
 require.config({
-    baseUrl: typeof configData === 'object' ? configData.baseUrl : './',
+    baseUrl: metadata.baseUrl === undefined ? metadata.baseUrl : './',
     waitSeconds:0,
     paths: {
         "jquery": "vendors/jquery/jquery",
         'domReady': 'vendors/requirejs-domready/domReady',
         'swfobject': 'vendors/swfobject/swfobject-amd',
         'modernizr': 'vendors/modernizr/modernizr',
-        'jquery.easing': 'vendors/jquery/jquery.easing',
         'hammer': 'vendors/hammerjs/dist/jquery.hammer',
+        'hance': 'vendors/hance.js/dev/hance',
         'history': 'vendors/history.js/scripts/bundled-uncompressed/html5/native.history'
     },
     shim: {
     }, packages: [
-        { name: 'greensock', main: '', location: 'vendors/greensock' },
-        { name: 'crown', main: 'core', location: 'vendors/crown' },
-        { name: 'crown.utils', main: '', location: 'vendors/crown.utils' },
-        { name: 'crown.vminpoly', main: 'vminpoly', location: 'vendors/crown.vminpoly' },
-        { name: 'crown.browser', main: 'browser', location: 'vendors/crown.browser' },
-        { name: 'crown.ui', main: '', location: 'vendors/crown.ui' },
-        { name: 'crown.site', main: 'Stage', location: 'vendors/crown.site' },
-        { name: 'crown.shim', main: '', location: 'vendors/crown.shim' },
-        { name: 'prettify', main: 'prettify', location: 'vendors/prettify/src' },
-        { name: 'crown.player', main: 'MediaPlayer', location: 'vendors/crown.player' }]
+        { name: 'greensock', main: '', location: 'vendors/greensock/src/uncompressed' },
+        { name: 'crown', main: '', location: '../../../dev' }]
 });
 
-require(['scripts/Main', 'crown.browser', 'crown.vminpoly', 'domReady!'], function (Main, browser) {
-    if (browser.msie && browser.version < 9) {
-        require(['crown.shim/cssfx'], function(){
-            new Main();
-        });
-    } else {
-        new Main();
-    }
+require(['scripts/Main', 'domReady!'], function (Main) {
+    new Main();
 });
 
 

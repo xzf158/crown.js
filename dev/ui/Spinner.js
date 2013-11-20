@@ -1,5 +1,5 @@
-define(['crown', 'jquery', 'domReady!'], function (crown, $) {
-    var Artist = crown.inherit('crown.ui.Spinner.Artist', function () { });
+define(['hance', 'jquery', 'domReady!'], function (hance, $) {
+    var Artist = hance.inherit('crown.ui.Spinner.Artist', function () { });
     var aproto = Artist.prototype;
     aproto.init = function (element, options) {
         this._element = $(element);
@@ -19,10 +19,10 @@ define(['crown', 'jquery', 'domReady!'], function (crown, $) {
         this._valueElement.html(Math.floor(this._currentWeight / this._totalWeight * 100) + '%');
     };
 
-    var Controller = crown.inherit("crown.ui/Spinner", function () { });
+    var Controller = hance.inherit("crown.ui/Spinner", function () { });
     Controller.options = {};
     var cproto = Controller.prototype;
-    crown.properties(cproto, [{name:'progress', getter:true}]);
+    hance.properties(cproto, [{name:'progress', getter:true}]);
     cproto.init = function (element, options) {
         this._options = $.extend({}, Controller.options, options);
         this.artist = this._options.artist || new Artist(element, this._options);

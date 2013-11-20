@@ -1,8 +1,8 @@
 /// <reference path="../../scripts/parallax.js" />
-define(['crown', 'jquery', 'hammer', 'modernizr', 'greensock/TweenMax'], function (crown, $, hammer) {
-    var Artist = crown.inherit('crown.ui.Carousel.Artist', function () { });
+define(['hance', 'jquery', 'hammer', 'modernizr', 'greensock/TweenMax'], function (hance, $, hammer) {
+    var Artist = hance.inherit('crown.ui.Carousel.Artist', function () { });
     var aproto = Artist.prototype;
-    crown.properties(aproto, [{ name: 'contentViewport', getter: true },
+    hance.properties(aproto, [{ name: 'contentViewport', getter: true },
         { name: 'contentContainer', getter: true },
         { name: 'contents', getter: true },
         { name: 'stampContainer', getter: true },

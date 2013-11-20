@@ -2,12 +2,14 @@
   "name": "s0",
   "version": "0.3.0",
   "dependencies": {
+    "hance.js": "latest",
     "jquery": "~1.10.2",
     "requirejs": "latest",
     "history.js": "latest",
-    "modernizr": "~2.6.2",
+    "modernizr": "latest",
     "requirejs-domready": "latest",
-    "hammerjs": "~1.0.5"
+    "hammerjs": "latest",
+    "greensock": "latest"
   }
 }
 

@@ -2,8 +2,8 @@
 /// <reference path="crown.core.js" />
 /// <reference path="crown.Object.js" />
 
-define(['crown', 'jquery'], function (crown, $) {
-    var Scheme = crown.inherit('crown.ui.Scroller', function () { });
+define(['hance', 'jquery'], function (hance, $) {
+    var Scheme = hance.inherit('crown.ui.Scroller', function () { });
     Scheme.options = {
         wheel: 40, //how many pixels must the mouswheel scroll at a time.
         size: 'auto', //set the size of the scrollbar to auto or a fixed number.
@@ -23,8 +23,7 @@ define(['crown', 'jquery'], function (crown, $) {
         }
     };
     var proto = Scheme.prototype;
-    crown.properties(proto, [{ name: 'vratio', getter: true, setter: true }]);
-    crown.properties(proto, [{ name: 'hratio', getter: true, setter: true }]);
+    hance.properties(proto, [{ name: 'vratio', getter: true, setter: true },{ name: 'hratio', getter: true, setter: true }]);
     proto.init = function (options) {
         this.options = $.extend({}, Scheme.options, options);
         this.wrapper = $(this.options.wrapper);

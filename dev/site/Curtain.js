@@ -1,7 +1,7 @@
-define(['crown', 'jquery', 'domReady!'], function (crown, $) {
-    var Scheme = crown.inherit("crown.site.Curtain", function () { });
+define(['hance', 'jquery', 'domReady!'], function (hance, $) {
+    var Scheme = hance.inherit("crown.site.Curtain", function () { });
     var proto = Scheme.prototype;
-    crown.properties(proto, [
+    hance.properties(proto, [
     ]);
     proto.init = function (options) {
         this._queue = [];
@@ -13,6 +13,7 @@ define(['crown', 'jquery', 'domReady!'], function (crown, $) {
 
     };
     proto.shift = function () {
+        this._queue = [];
     };
     return Scheme;
 });

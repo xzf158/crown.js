@@ -1,5 +1,5 @@
-define(["jquery", "crown", 'greensock/TweenMax'], function ($, crown) {
-    var Scheme = crown.inherit("Dialog", function () { });
+define(["jquery", "hance", 'greensock/TweenMax'], function ($, hance) {
+    var Scheme = hance.inherit("Dialog", function () { });
     Scheme.options = { features: {} };
     var proto = Scheme.prototype;
     proto.init = function () {

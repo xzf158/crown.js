@@ -7,17 +7,9 @@
     <title>Home page</title>
     <link rel="stylesheet" type="text/css" class="cssfx vminpoly" href="styles/main.css" />
     <script>
-    configData = {
-        baseUrl: './'
-    };
-    </script>
-    <script id="context-data" type="text/x-data">
-    {
-        scene: {
-            name: 'contact',
-            script: 'scripts/scenes/Contact'
+        window.metadata = {
+            baseUrl: './'
         }
-    }
     </script>
     <script data-main="scripts/config" src="vendors/requirejs/require.js"></script>
 </head>
@@ -26,19 +18,19 @@
 		<header>
             <nav>
                 <ul>
-                    <li class="hn-navi-item"><a class="hn-scene-link" href="index.html">Home</a>
+                    <li cw-zone-name="index"><a class="cw-zone-link" href="index.html">Home</a>
                     </li>
-                    <li class="hn-navi-item"><a class="hn-scene-link" href="about.html">About</a>
+                    <li cw-zone-name="about"><a class="cw-zone-link" href="about.html">About</a>
                     </li>
-                    <li class="hn-navi-item"><a class="hn-scene-link" href="showcase.html">Showcase</a>
+                    <li cw-zone-name="showcase"><a class="cw-zone-link" href="showcase.html">Showcase</a>
                     </li>
-                    <li class="hn-navi-item"><a class="hn-scene-link" href="contact.html">Contact</a>
+                    <li cw-zone-name="contact"><a class="cw-zone-link" href="contact.html">Contact</a>
                     </li>
                 </ul>
             </nav>
 		</header>
         <div id="torso">
-            <div class="hn-scene-element scene-contact" data-scene-name="contact">
+            <div class="cw-zone zone-contact" cw-name="contact">
                 Contact page<br> Contact page<br> Contact page<br> Contact page<br>
             </div>
         </div>
