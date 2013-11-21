@@ -1,4 +1,4 @@
-define(['jquery', 'hance', 'crown/player/utils'], function($, crown, utils) {
+define(['jquery', 'hance', 'crown/player/utils'], function($, hance, utils) {
     var Scheme = hance.inherit('crown.player.MediaEssence', function() {});
     //Scheme.supportTypes = ['video/mp4', 'video/webm', 'video/ogg', 'video/wmv'];
     var proto = Scheme.prototype;
@@ -52,7 +52,7 @@ define(['jquery', 'hance', 'crown/player/utils'], function($, crown, utils) {
         var chapters = this.chapters = [];
         this.node = node;
         var $node = this.$node = $(node);
-        var $renderer = this.$renderer = $('<div class="hnp-essence"><video class="hnp-renderer"></video></div>').appendTo($node).find('video');
+        var $renderer = this.$renderer = $('<div class="cwp-essence"><video class="cwp-renderer"></video></div>').appendTo($node).find('video');
         var renderer = this.renderer = $renderer[0];
         var self = this,
             $self = $(this);
@@ -78,8 +78,8 @@ define(['jquery', 'hance', 'crown/player/utils'], function($, crown, utils) {
             $renderer.removeAttr('poster');
         }
 
-        options.width = options.width || crown.fetch('crown.player').defaultVideoWidth;
-        options.height = options.height || crown.fetch('crown.player').defaultVideoHeight;
+        options.width = options.width || hance.fetch('crown.player').defaultVideoWidth;
+        options.height = options.height || hance.fetch('crown.player').defaultVideoHeight;
 
         //$renderer.attr({ width: options.width, height: options.height });
         if (this.tracks) {

@@ -2,7 +2,7 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
     var Scheme = hance.inherit('crown.player.surfaces.Classic', function () { });
     var proto = Scheme.prototype;
     proto.init = function (player, options) {
-        this.cssClass = 'hnp-surface-classic' + (utils.platform.supportsSvg ? ' detect-svg' : ' detect-non-svg') + (utils.platform.hasTouch ? ' detect-touch' : ' detect-non-touch');
+        this.cssClass = 'cwp-surface-classic' + (utils.platform.supportsSvg ? ' detect-svg' : ' detect-non-svg') + (utils.platform.hasTouch ? ' detect-touch' : ' detect-non-touch');
         this.player = player;
         this.essence = player.essence;
         this.renderer = this.essence.renderer;
@@ -34,10 +34,10 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
         }
     };
     proto.node_live = function ($node) {
-        $node.removeClass('hnp-state-dead').addClass('hnp-state-live');
+        $node.removeClass('cwp-state-dead').addClass('cwp-state-live');
     };
     proto.node_dead = function ($node) {
-        $node.removeClass('hnp-state-live').addClass('hnp-state-dead');
+        $node.removeClass('cwp-state-live').addClass('cwp-state-dead');
     };
     proto.ready = function () {
         if (this.built !== true) {
@@ -50,7 +50,7 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
             self.node_live(self.$controls);
             //clearTimeout(autoHideTimeoutId);
             //setTimeout(function () {
-            //    if (self.$controls.hasClass('hnp-state-live')) {
+            //    if (self.$controls.hasClass('cwp-state-live')) {
             //        self.node_dead(self.$controls);
             //    }
             //}, 1500);
@@ -91,18 +91,18 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
         var self = this;
         if ((utils.platform.isiPad && this.options.iPadUseNativeControls) || (utils.platform.isiPhone && this.options.iPhoneUseNativeControls)) {
             this.$renderer.attr('controls', 'controls');
-            this.player.$node.addClass(this.cssClass).addClass('hnp-theme-native');
+            this.player.$node.addClass(this.cssClass).addClass('cwp-theme-native');
             if (utils.platform.isiPad && this.renderer.getAttribute('autoplay')) {
                 this.essence.load();
                 this.essence.play();
             }
         } else if (utils.platform.isAndroid && this.options.androidUseNativeControls) {
         } else {
-            this.$node = $('<div class="hnp-surface"></div>');
+            this.$node = $('<div class="cwp-surface"></div>');
             this.node = this.$node[0];
-            this.descendants.$controls = this.$controls = this.$controls = $('<div class="hnp-controls"></div>').appendTo(this.node);
+            this.descendants.$controls = this.$controls = this.$controls = $('<div class="cwp-controls"></div>').appendTo(this.node);
             this.controls = this.controls = this.$controls[0];
-           // this.player.$node.addClass(this.cssClass).addClass('hnp-theme-' + this.player.options.theme);
+           // this.player.$node.addClass(this.cssClass).addClass('cwp-theme-' + this.player.options.theme);
 
             this.build_poster();
             for (var i = 0, il = this.features.length; i < il; i++) {
@@ -127,26 +127,26 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
 
         $(this.essence).on('play.surface', function () {
             self.isPlay = true;
-            self.player.$node.removeClass('hnp-state-pause').addClass('hnp-state-play');
+            self.player.$node.removeClass('cwp-state-pause').addClass('cwp-state-play');
         }).on('playing.surface', function () {
             self.isPlaying = true;
-            self.player.$node.removeClass('hnp-state-pause ').addClass('hnp-state-play');
+            self.player.$node.removeClass('cwp-state-pause ').addClass('cwp-state-play');
         })//.on('seeking', function () {
-          //  self.player.$node.removeClass('hnp-state-play').addClass('hnp-state-pause');
+          //  self.player.$node.removeClass('cwp-state-play').addClass('cwp-state-pause');
         //})
         .on('pause.surface', function () {
-            self.player.$node.removeClass('hnp-state-play').addClass('hnp-state-pause');
+            self.player.$node.removeClass('cwp-state-play').addClass('cwp-state-pause');
         }).on('paused.surface', function () {
-            self.player.$node.removeClass('hnp-state-play').addClass('hnp-state-pause');
+            self.player.$node.removeClass('cwp-state-play').addClass('cwp-state-pause');
         }).on('ended.surface', function () {
             if (!self.player.options.loop) {
-                self.player.$node.removeClass('hnp-state-play').addClass('hnp-state-pause');
+                self.player.$node.removeClass('cwp-state-play').addClass('cwp-state-pause');
             }
         });
     };
     proto.build_poster = function () {
         var self = this;
-        this.descendants.$poster = $('<div class="hnp-poster"></div>')
+        this.descendants.$poster = $('<div class="cwp-poster"></div>')
                     .appendTo(this.node);
         var posterUrl = this.options.poster;
 
@@ -167,7 +167,7 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
         }, false);
     };
     proto.build_overlay = function () {
-        this.descendants.$overlay = $('<div class="hnp-overlay"><div class="hnp-button hnp-control hnp-overlay-control"><span></span></div></div>')
+        this.descendants.$overlay = $('<div class="cwp-overlay"><div class="cwp-button cwp-control cwp-overlay-control"><span></span></div></div>')
                     .appendTo(this.node);
 
         var self = this;
@@ -180,7 +180,7 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
         });
     };
     proto.build_spinner = function () {
-        this.descendants.$spinner = $('<div class="hnp-control hnp-spinner"><span></span></div>')
+        this.descendants.$spinner = $('<div class="cwp-control cwp-spinner"><span></span></div>')
                     .appendTo(this.node);
         var self = this;
         $(self.essence).on("loadeddata.surface", function () { self.node_dead(self.descendants.$spinner); })
@@ -194,7 +194,7 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
             }, false);
     };
     proto.build_play = function () {
-        this.descendants.$play = $('<div class="hnp-button hnp-control hnp-play-control"><span></span></div>')
+        this.descendants.$play = $('<div class="cwp-button cwp-control cwp-play-control"><span></span></div>')
             .appendTo(this.controls);
 
         var self = this;
@@ -208,17 +208,17 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
 
     };
     proto.build_scrubber = function () {
-        this.descendants.$scrubber = $('<div class="hnp-control hnp-scrubber-control"><span class="hnp-scrubber-inner">' +
-        '<span class="hnp-time-total"></span><span class="hnp-time-loaded"></span><span class="hnp-time-played"></span><span class="hnp-button hnp-time-handle"></span>' +
-        '<span class="hnp-time-float"><span class="hnp-float-value">00:00</span><span class="hnp-float-corner"></span></span>' +
+        this.descendants.$scrubber = $('<div class="cwp-control cwp-scrubber-control"><span class="cwp-scrubber-inner">' +
+        '<span class="cwp-time-total"></span><span class="cwp-time-loaded"></span><span class="cwp-time-played"></span><span class="cwp-button cwp-time-handle"></span>' +
+        '<span class="cwp-time-float"><span class="cwp-float-value">00:00</span><span class="cwp-float-corner"></span></span>' +
         '</span></div>').appendTo(this.controls);
 
-        var self = this, $leader = self.descendants.$scrubber.find('.hnp-scrubber-inner'),
-            $loaded = $leader.find('.hnp-time-loaded').data('value', 0),
-            $played = $leader.find('.hnp-time-played').data('value', 0),
-            $handle = $leader.find('.hnp-time-handle'),
-            $timeFloat = $leader.find('.hnp-time-float'),
-            $timeFloatValue = $timeFloat.find('.hnp-float-value'),
+        var self = this, $leader = self.descendants.$scrubber.find('.cwp-scrubber-inner'),
+            $loaded = $leader.find('.cwp-time-loaded').data('value', 0),
+            $played = $leader.find('.cwp-time-played').data('value', 0),
+            $handle = $leader.find('.cwp-time-handle'),
+            $timeFloat = $leader.find('.cwp-time-float'),
+            $timeFloatValue = $timeFloat.find('.cwp-float-value'),
             setLoadedProgress = function (e) {
                 $loaded.width($leader.width() * e.ratio).data('value', e.ratio);
             },
@@ -289,9 +289,9 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
     proto.layout_scrubber = function () {
         // console.log('Scheme scrubber===');
         var $scrubber = this.descendants.$scrubber, usedWidth = 0, railWidth = 0;
-        var $scrubberLeader = $scrubber.find('.hnp-scrubber-inner'),
-            $timeLoaded = $scrubberLeader.find('.hnp-time-loaded'),
-            $timePlayed = $scrubberLeader.find('.hnp-time-played'),
+        var $scrubberLeader = $scrubber.find('.cwp-scrubber-inner'),
+            $timeLoaded = $scrubberLeader.find('.cwp-time-loaded'),
+            $timePlayed = $scrubberLeader.find('.cwp-time-played'),
             $others = this.descendants.$scrubber.siblings();
 
         // find the size of all the other controls besides the rail
@@ -304,13 +304,13 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
         railWidth = this.$controls.width() - usedWidth - ($scrubber.outerWidth(true) - $scrubber.outerWidth(false)) - 1; //ie -1
         $scrubber.width(railWidth);
         $scrubberLeader.width(railWidth - ($scrubberLeader.outerWidth(true) - $scrubberLeader.width()));
-        $scrubberLeader.find('.hnp-time-total').width($scrubberLeader.width());
+        $scrubberLeader.find('.cwp-time-total').width($scrubberLeader.width());
         $timeLoaded.width($timeLoaded.data('value') * $scrubberLeader.width());
         $timePlayed.width($timePlayed.data('value') * $scrubberLeader.width());
     };
     proto.build_time = function () {
-        this.descendants.$time = $('<div class="hnp-time-control"><span class="hnp-current">00:00</span><span class="hnp-slash">/</span>' +
-        '<span class="hnp-duration">00:00</span></div>')
+        this.descendants.$time = $('<div class="cwp-time-control"><span class="cwp-current">00:00</span><span class="cwp-slash">/</span>' +
+        '<span class="cwp-duration">00:00</span></div>')
                     .appendTo(this.controls);
         var self = this;
         $(this.essence).on('timeupdate.surface', function () {
@@ -319,33 +319,33 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
         });
     };
     proto.build_current = function () {
-        this.descendants.$current = $('<div class="hnp-time-control"><span class="hnp-current">00:00</span></div>')
+        this.descendants.$current = $('<div class="cwp-time-control"><span class="cwp-current">00:00</span></div>')
                     .appendTo(this.controls);
         var self = this;
         $(this.essence).on('timeupdate.surface', function (e) {
-            self.descendants.$current.find('.hnp-current').html(utils.secondsToTimeCode(self.essence.getCurrentTime()));
+            self.descendants.$current.find('.cwp-current').html(utils.secondsToTimeCode(self.essence.getCurrentTime()));
         });
     };
     proto.build_duration = function () {
-        this.descendants.$duration = $('<div class="hnp-time-control"><span class="hnp-duration">00:00</span></div>')
+        this.descendants.$duration = $('<div class="cwp-time-control"><span class="cwp-duration">00:00</span></div>')
                     .appendTo(this.controls);
         var self = this;
         $(this.essence).on('timeupdate.surface', function (e) {
-            self.descendants.$duration.find('.hnp-duration').html(utils.secondsToTimeCode(self.essence.getDuration()));
+            self.descendants.$duration.find('.cwp-duration').html(utils.secondsToTimeCode(self.essence.getDuration()));
         });
     };
     proto.build_volume = function () {
         if (utils.platform.isiOS) {
             return;
         }
-        this.descendants.$volume = $('<div class="hnp-button hnp-volume-control"><span></span><div class="hnp-volume-slider"><div class="hnp-slider-inner">' +
-        '<div class="hnp-volume-total"></div><div class="hnp-volume-current"></div><div class="hnp-volume-handle">' +
+        this.descendants.$volume = $('<div class="cwp-button cwp-volume-control"><span></span><div class="cwp-volume-slider"><div class="cwp-slider-inner">' +
+        '<div class="cwp-volume-total"></div><div class="cwp-volume-current"></div><div class="cwp-volume-handle">' +
         '</div></div></div></div>').appendTo(this.controls);
 
-        var self = this, $volumeSlider = self.descendants.$volume.find('.hnp-volume-slider'),
-        $volumeTotal = $volumeSlider.find('.hnp-volume-total'),
-        $volumeCurrent = $volumeSlider.find('.hnp-volume-current'),
-        $volumeHandle = $volumeSlider.find('.hnp-volume-handle'),
+        var self = this, $volumeSlider = self.descendants.$volume.find('.cwp-volume-slider'),
+        $volumeTotal = $volumeSlider.find('.cwp-volume-total'),
+        $volumeCurrent = $volumeSlider.find('.cwp-volume-current'),
+        $volumeHandle = $volumeSlider.find('.cwp-volume-handle'),
         positionVolumeHandle = function (volume) {
             var volumeTotalHeight = $volumeTotal.height();
             var volumeTotalWidth = $volumeTotal.width();
@@ -392,14 +392,14 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
         onVolumeChange = function (e) {
             //if (!isMouseDown) {//before mouse up event
             if (self.essence.getIsMuted()) {
-                self.player.$node.removeClass('hnp-state-unmute').addClass('hnp-state-mute');
+                self.player.$node.removeClass('cwp-state-unmute').addClass('cwp-state-mute');
                 positionVolumeHandle(0);
             } else {
                 positionVolumeHandle(self.essence.getVolume());
                 if (self.essence.volume === 0) {
-                    self.player.$node.removeClass('hnp-state-unmute').addClass('hnp-state-mute');
+                    self.player.$node.removeClass('cwp-state-unmute').addClass('cwp-state-mute');
                 } else {
-                    self.player.$node.removeClass('hnp-state-mute').addClass('hnp-state-unmute');
+                    self.player.$node.removeClass('cwp-state-mute').addClass('cwp-state-unmute');
                 }
                 //if ($.cookie && self.player.options.saveVolume) {
                 //    $.cookie('crown.player.volume', self.essence.volume);
@@ -451,7 +451,7 @@ define(['jquery', 'hance', 'crown/player/utils'], function ($, hance, utils) {
         setTimeout(onVolumeChange,100);
     };
     proto.build_fullscreen = function (player, options) {
-        this.descendants.$fullScreen = $('<div class="hnp-button hnp-fullscreen-control"><span></span></div>')
+        this.descendants.$fullScreen = $('<div class="cwp-button cwp-fullscreen-control"><span></span></div>')
                     .appendTo(this.controls);
 
         var self = this;

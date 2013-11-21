@@ -1,8 +1,8 @@
 ﻿define(['jquery', 'hance', 'crown/ui/crown.ui.utils', 'crown/shim/animation'], function ($, hance, utils) {
     var Scheme = hance.inherit("crown.ui.Sprite", function () { });
     Scheme.options = { startFrame: 0, endFrame: -1, loops: 1, loopGap:0, interval: 24, renderMode: 'canvas', renderSequent: true, direction: 1 };
-    Scheme.cssClassName = 'hn-sprite';
-    Scheme.dataId = 'hn-sprite';
+    Scheme.cssClassName = 'cw-sprite';
+    Scheme.dataId = 'cw-sprite';
     Scheme._instances = [];
     Scheme._playlist = [];
     Scheme.sync = function () {
@@ -67,7 +67,7 @@
     //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>sprite setup>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
     var proto = Scheme.prototype;
-    crown.properties(proto, [{ name: 'element', getter: true, setter: false },
+    hance.properties(proto, [{ name: 'element', getter: true, setter: false },
     { name: 'options', getter: true, setter: false },
     { name: 'state', getter: true, setter: false },
     { name: 'loaded', getter: true, setter: false }]);
@@ -121,10 +121,10 @@
         }
 
         if (options.spinner) {
-            $(element).html('<div class="hn-spinner"><img src="' + this._options.spinner + '" alt="loading..." /></div>');
+            $(element).html('<div class="cw-spinner"><img src="' + this._options.spinner + '" alt="loading..." /></div>');
         }
         if (options.poster) {
-            $(element).html('<div class="hn-poster"><img src="' + this._options.poster + '" alt="poster" /></div>');
+            $(element).html('<div class="cw-poster"><img src="' + this._options.poster + '" alt="poster" /></div>');
         }
         if (this._autoLoad) {
             this.load(this._autoPlay);

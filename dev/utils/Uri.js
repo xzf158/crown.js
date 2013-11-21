@@ -1,7 +1,7 @@
 //http://objectmix.com/javascript/352627-relative-url-absolute-url.html
 //http://blog.stevenlevithan.com/archives/parseuri
 define(['jquery', 'hance'], function ($, hance) {
-    var Scheme = hance.inherit('crown.utils.Uri', function () { });
+    var Scheme = hance.inherit(function () { });
     Scheme.combine = function () {
         var path = '';
         for (var i in arguments) {
@@ -37,10 +37,10 @@ define(['jquery', 'hance'], function ($, hance) {
         return url;
     };
     Scheme.setParams = function (url, params, removeOthers) {
-        return ((new crown.Uri(url)).setParams(params, removeOthers)).url;
+        return ((new Scheme(url)).setParams(params, removeOthers)).url;
     };
     Scheme.appendSearch = function (url, search, replace) {
-        return ((new crown.Uri(url)).appendSearch(search, replace)).url;
+        return ((new Scheme(url)).appendSearch(search, replace)).url;
     };
     Scheme.compare = function () {
         var path0 = Scheme.absolute(arguments[0]);

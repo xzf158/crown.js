@@ -6,6 +6,9 @@ define(['hance', 'jquery', 'domReady!'], function (hance, $) {
     proto.init = function (options) {
         this._queue = [];
     };
+    proto.clean = function(){
+        this._queue = [];
+    };
     proto.push = function(zone, phase){
         this._queue.push({zone:zone, phase:phase});
     };

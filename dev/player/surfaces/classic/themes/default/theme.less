@@ -1,4 +1,4 @@
-.hnp-surface-classic.hnp-theme-native {
+.cwp-surface-classic.cwp-theme-native {
     video,object {
         margin:0;
         padding:0;
@@ -14,7 +14,7 @@
         left: 0;
         bottom: 0;
     }
-    .hnp-essence{
+    .cwp-essence{
         position:absolute;
         left: 0;
         top: 0;
@@ -23,7 +23,7 @@
         background: transparent;
     }
 }
-.hnp-surface-classic.hnp-theme-default {
+.cwp-surface-classic.cwp-theme-default {
     position: absolute;
     left:0;
     text-align: left;
@@ -46,7 +46,7 @@
         position:absolute;
         top:0;
     }
-    .hnp-essence{
+    .cwp-essence{
         position:absolute;
         left: 0;
         top: 0;
@@ -55,12 +55,12 @@
 	    background: transparent;
     }
 
-    .hnp-renderer{
+    .cwp-renderer{
         width:100%;
         height:100%;
     }
 
-    .hnp-get-flash{
+    .cwp-get-flash{
         display:block;
         width:100%;
         height:100%;
@@ -78,20 +78,20 @@
         }
     }
 
-    .hnp-state-live {
+    .cwp-state-live {
         display: block;
     }
 
-    .hnp-state-dead {
+    .cwp-state-dead {
         display: none;
     }
 
-    .hnp-media {
+    .cwp-media {
         width: 100%;
         height: 100%;
     }
 
-    .hnp-poster {
+    .cwp-poster {
         width: 100%;
         height: 100%;
 
@@ -102,7 +102,7 @@
         }
     }
 
-    .hnp-surface {
+    .cwp-surface {
         width: 100%;
         height: 100%;
         position:relative;
@@ -112,7 +112,7 @@
         z-index: 100;
     }
 
-    .hnp-controls {
+    .cwp-controls {
         bottom: 0;
         left: 0;
         list-style-type: none;
@@ -129,19 +129,19 @@
         background: #000;
         background: rgba(0, 0, 0, 0.6);
 
-        &.hnp-state-dead {
+        &.cwp-state-dead {
             display: block;
             opacity: 0;
             .transition-delay( 1s);
         }
 
-        &.hnp-state-live {
+        &.cwp-state-live {
             display: block;
             opacity: 1;
             .transition-delay(0s);
         }
 
-        .hnp-button {
+        .cwp-button {
             span {
                 background: url("images/controls.png") no-repeat scroll 0 0 transparent;
                 cursor: pointer;
@@ -154,20 +154,20 @@
                 width: 20px;
             }
 
-            &.hnp-play-control span {
+            &.cwp-play-control span {
                 width: 13px;
                 height:16px;
                 margin: 5px 7px;
                 background-position: -13px -2px;
             }
 
-            &.hnp-fullscreen-control span {
+            &.cwp-fullscreen-control span {
                 width: 18px;
                 background-position: -2px -17px;
                 margin: 4px 7px;
             }
 
-            &.hnp-volume-control {
+            &.cwp-volume-control {
                 position: relative;
                 width: auto;
 
@@ -179,18 +179,18 @@
             }
         }
 
-        .hnp-volume-slider {
+        .cwp-volume-slider {
             width: 40px;
             float: left;
             margin: 0;
 
-            .hnp-slider-inner {
+            .cwp-slider-inner {
                 position: relative;
                 top: 11px;
                 width: 100%;
             }
 
-            .hnp-volume-total {
+            .cwp-volume-total {
                 position: absolute;
                 width: 100%;
                 height: 4px;
@@ -199,7 +199,7 @@
                 margin: 0;
             }
 
-            .hnp-volume-current {
+            .cwp-volume-current {
                 position: absolute;
                 width: 2px;
                 height: 4px;
@@ -208,7 +208,7 @@
                 margin: 0;
             }
 
-            .hnp-volume-handle {
+            .cwp-volume-handle {
                 width: 0;
                 visibility: hidden;
             }
@@ -230,7 +230,7 @@
     }
 
 
-    .hnp-spinner {
+    .cwp-spinner {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -250,23 +250,23 @@
         }
     }
 
-    &.hnp-state-play {
-        .hnp-overlay {
+    &.cwp-state-play {
+        .cwp-overlay {
         background: rgba(0, 0, 0, 0);
 
-            .hnp-overlay-control {
+            .cwp-overlay-control {
                 background: none;
                 display: none;
             }
         }
 
-        .hnp-button.hnp-play-control span {
+        .cwp-button.cwp-play-control span {
             width: 9px;
             background-position: -2px -1px;
         }
     }
 
-    &.hnp-state-fullscreen {
+    &.cwp-state-fullscreen {
         position: fixed;
         left: 0;
         right: 0;
@@ -274,16 +274,16 @@
         bottom: 0;
         z-index: 100000;
 
-        .hnp-button.hnp-fullscreen-control span {
+        .cwp-button.cwp-fullscreen-control span {
             background-position: -22px -17px;
         }
     }
 
-    &.hnp-state-mute .hnp-controls .hnp-volume-control span {
+    &.cwp-state-mute .cwp-controls .cwp-volume-control span {
         background-position: -42px -18px;
     }
 
-    .hnp-overlay {
+    .cwp-overlay {
         cursor: pointer;
         left: 0;
         position: absolute;
@@ -296,11 +296,11 @@
         background: rgba(0,0,0,0);
         overflow: visible;
 
-        &:hover .hnp-overlay-control {
+        &:hover .cwp-overlay-control {
             opacity: 1;
         }
 
-        .hnp-overlay-control {
+        .cwp-overlay-control {
             background: url("images/bigplay.png") no-repeat scroll left top transparent;
             height: 100px;
             left: 50%;
@@ -315,7 +315,7 @@
         }
     }
 
-    div.hnp-time-control {
+    div.cwp-time-control {
         display: block;
         height: 17px;
         width: auto;
@@ -324,7 +324,7 @@
         text-align: center;
     }
 
-    div.hnp-scrubber-control {
+    div.cwp-scrubber-control {
         width: 200px;
         padding-top: 6px;
 
@@ -335,28 +335,28 @@
             cursor: pointer;
         }
 
-        .hnp-time-total {
+        .cwp-time-total {
             background: #333;
             background: rgba(50, 50, 50, .8);
         }
 
-        .hnp-scrubber-inner {
+        .cwp-scrubber-inner {
             display: block;
             margin: 5px;
             height: 10px;
         }
 
-        .hnp-time-loaded {
+        .cwp-time-loaded {
             background: #DDD;
             background: rgba(255, 255, 255, 0.5);
         }
 
-        .hnp-time-played {
+        .cwp-time-played {
             background: #fff;
             background: rgba(255, 255, 255, 0.8);
         }
 
-        .hnp-time-handle {
+        .cwp-time-handle {
             position: absolute;
             margin: 0;
             width: 10px;
@@ -368,7 +368,7 @@
             text-align: center;
         }
 
-        .hnp-time-float {
+        .cwp-time-float {
             display: none;
         }
     }

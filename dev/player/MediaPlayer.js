@@ -114,7 +114,7 @@ define(['jquery', 'hance', 'crown/player/utils', 'crown/player/MediaEssence', 'c
     proto.init = function (node, options) {
         options = $.extend({}, Scheme.options, options);
         this.node = node;
-        this.$node = $(this.node).html('').addClass('hnp-state-unfullscreen');
+        this.$node = $(this.node).html('').addClass('cwp-state-unfullscreen');
 
         this.essences = [];
         var self = this;
@@ -195,7 +195,7 @@ define(['jquery', 'hance', 'crown/player/utils', 'crown/player/MediaEssence', 'c
                 if (typeof self.options.surface === 'string') {
                     utils.require(['crown/player/surfaces/' + self.options.surface + '/surface'], function (Surface) {
                         self.surface = new Surface(self, self.options);
-                        self.$node.addClass(self.surface.cssClass).addClass('hnp-theme-' + this.options.theme);
+                        self.$node.addClass(self.surface.cssClass).addClass('cwp-theme-' + this.options.theme);
                         if (e.fail) {
                             return;
                         }
@@ -207,7 +207,7 @@ define(['jquery', 'hance', 'crown/player/utils', 'crown/player/MediaEssence', 'c
                     });
                 } else {
                     self.surface = new self.options.surface(self, self.options);
-                    this.$node.addClass(self.surface.cssClass).addClass('hnp-theme-' + this.options.theme);
+                    this.$node.addClass(self.surface.cssClass).addClass('cwp-theme-' + this.options.theme);
                     if (e.fail) {
                         return;
                     }
@@ -309,7 +309,7 @@ define(['jquery', 'hance', 'crown/player/utils', 'crown/player/MediaEssence', 'c
             this.nodeOrigHeight = this.$node[0].style.getPropertyValue != null ? this.$node[0].style.getPropertyValue("height") : this.$node[0].style.getAttribute("height");
             $document.css('overflow', 'hidden');
             this.$node.css({ width: '', height: '' });
-            this.$node.removeClass('hnp-state-unfullscreen').addClass('hnp-state-fullscreen');
+            this.$node.removeClass('cwp-state-unfullscreen').addClass('cwp-state-fullscreen');
             $('html').removeClass('unfullscreen').addClass('fullscreen');
             this._docOrigDataStored = true;
         } else {
@@ -317,7 +317,7 @@ define(['jquery', 'hance', 'crown/player/utils', 'crown/player/MediaEssence', 'c
             $document.scrollTop(this.docOrigScrollTop);
             $document.scrollLeft(this.docOrigScrollLeft);
             this.$node.css({ width: this.nodeOrigWidth, height: this.nodeOrigHeight });
-            this.$node.removeClass('hnp-state-fullscreen').addClass('hnp-state-unfullscreen');
+            this.$node.removeClass('cwp-state-fullscreen').addClass('cwp-state-unfullscreen');
             $('html').removeClass('fullscreen').addClass('unfullscreen');
             this._docOrigDataStored = false;
         }

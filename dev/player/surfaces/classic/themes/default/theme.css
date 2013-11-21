@@ -1,5 +1,5 @@
-.hnp-surface-classic.hnp-theme-native video,
-.hnp-surface-classic.hnp-theme-native object {
+.cwp-surface-classic.cwp-theme-native video,
+.cwp-surface-classic.cwp-theme-native object {
   margin: 0;
   padding: 0;
   border: 0;
@@ -14,7 +14,7 @@
   left: 0;
   bottom: 0;
 }
-.hnp-surface-classic.hnp-theme-native .hnp-essence {
+.cwp-surface-classic.cwp-theme-native .cwp-essence {
   position: absolute;
   left: 0;
   top: 0;
@@ -22,7 +22,7 @@
   height: 100%;
   background: transparent;
 }
-.hnp-surface-classic.hnp-theme-default {
+.cwp-surface-classic.cwp-theme-default {
   position: absolute;
   left: 0;
   text-align: left;
@@ -33,8 +33,8 @@
   width: 100%;
   height: 100%;
 }
-.hnp-surface-classic.hnp-theme-default video,
-.hnp-surface-classic.hnp-theme-default object {
+.cwp-surface-classic.cwp-theme-default video,
+.cwp-surface-classic.cwp-theme-default object {
   margin: 0;
   padding: 0;
   border: 0;
@@ -47,7 +47,7 @@
   position: absolute;
   top: 0;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-essence {
+.cwp-surface-classic.cwp-theme-default .cwp-essence {
   position: absolute;
   left: 0;
   top: 0;
@@ -55,18 +55,18 @@
   height: 100%;
   background: transparent;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-renderer {
+.cwp-surface-classic.cwp-theme-default .cwp-renderer {
   width: 100%;
   height: 100%;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-get-flash {
+.cwp-surface-classic.cwp-theme-default .cwp-get-flash {
   display: block;
   width: 100%;
   height: 100%;
   position: relative;
   color: #fff;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-get-flash img {
+.cwp-surface-classic.cwp-theme-default .cwp-get-flash img {
   width: 160px;
   height: 41px;
   position: absolute;
@@ -75,26 +75,26 @@
   margin-left: -80px;
   margin-top: -20px;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-state-live {
+.cwp-surface-classic.cwp-theme-default .cwp-state-live {
   display: block;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-state-dead {
+.cwp-surface-classic.cwp-theme-default .cwp-state-dead {
   display: none;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-media {
+.cwp-surface-classic.cwp-theme-default .cwp-media {
   width: 100%;
   height: 100%;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-poster {
+.cwp-surface-classic.cwp-theme-default .cwp-poster {
   width: 100%;
   height: 100%;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-poster img {
+.cwp-surface-classic.cwp-theme-default .cwp-poster img {
   display: block;
   width: 100%;
   height: 100%;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-surface {
+.cwp-surface-classic.cwp-theme-default .cwp-surface {
   width: 100%;
   height: 100%;
   position: relative;
@@ -103,7 +103,7 @@
   background: rgba(0, 0, 0, 0);
   z-index: 100;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls {
+.cwp-surface-classic.cwp-theme-default .cwp-controls {
   bottom: 0;
   left: 0;
   list-style-type: none;
@@ -126,7 +126,7 @@
   background: #000;
   background: rgba(0, 0, 0, 0.6);
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls.hnp-state-dead {
+.cwp-surface-classic.cwp-theme-default .cwp-controls.cwp-state-dead {
   display: block;
   opacity: 0;
   -webkit-transition-delay: 1s;
@@ -134,7 +134,7 @@
   -o-transition-delay: 1s;
   transition-delay: 1s;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls.hnp-state-live {
+.cwp-surface-classic.cwp-theme-default .cwp-controls.cwp-state-live {
   display: block;
   opacity: 1;
   -webkit-transition-delay: 0s;
@@ -142,7 +142,7 @@
   -o-transition-delay: 0s;
   transition-delay: 0s;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls .hnp-button span {
+.cwp-surface-classic.cwp-theme-default .cwp-controls .cwp-button span {
   background: url("images/controls.png") no-repeat scroll 0 0 transparent;
   cursor: pointer;
   display: block;
@@ -153,37 +153,37 @@
   text-decoration: none;
   width: 20px;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls .hnp-button.hnp-play-control span {
+.cwp-surface-classic.cwp-theme-default .cwp-controls .cwp-button.cwp-play-control span {
   width: 13px;
   height: 16px;
   margin: 5px 7px;
   background-position: -13px -2px;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls .hnp-button.hnp-fullscreen-control span {
+.cwp-surface-classic.cwp-theme-default .cwp-controls .cwp-button.cwp-fullscreen-control span {
   width: 18px;
   background-position: -2px -17px;
   margin: 4px 7px;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls .hnp-button.hnp-volume-control {
+.cwp-surface-classic.cwp-theme-default .cwp-controls .cwp-button.cwp-volume-control {
   position: relative;
   width: auto;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls .hnp-button.hnp-volume-control span {
+.cwp-surface-classic.cwp-theme-default .cwp-controls .cwp-button.cwp-volume-control span {
   background-position: -42px 0px;
   margin: 4px 5px;
   float: left;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls .hnp-volume-slider {
+.cwp-surface-classic.cwp-theme-default .cwp-controls .cwp-volume-slider {
   width: 40px;
   float: left;
   margin: 0;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls .hnp-volume-slider .hnp-slider-inner {
+.cwp-surface-classic.cwp-theme-default .cwp-controls .cwp-volume-slider .cwp-slider-inner {
   position: relative;
   top: 11px;
   width: 100%;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls .hnp-volume-slider .hnp-volume-total {
+.cwp-surface-classic.cwp-theme-default .cwp-controls .cwp-volume-slider .cwp-volume-total {
   position: absolute;
   width: 100%;
   height: 4px;
@@ -191,7 +191,7 @@
   background: rgba(255, 255, 255, 0.5);
   margin: 0;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls .hnp-volume-slider .hnp-volume-current {
+.cwp-surface-classic.cwp-theme-default .cwp-controls .cwp-volume-slider .cwp-volume-current {
   position: absolute;
   width: 2px;
   height: 4px;
@@ -199,11 +199,11 @@
   background: rgba(255, 255, 255, 0.8);
   margin: 0;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls .hnp-volume-slider .hnp-volume-handle {
+.cwp-surface-classic.cwp-theme-default .cwp-controls .cwp-volume-slider .cwp-volume-handle {
   width: 0;
   visibility: hidden;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-controls div {
+.cwp-surface-classic.cwp-theme-default .cwp-controls div {
   list-style-type: none;
   background-image: none;
   display: block;
@@ -216,7 +216,7 @@
   line-height: 11px;
   font-family: Helvetica,Arial;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-spinner {
+.cwp-surface-classic.cwp-theme-default .cwp-spinner {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -228,24 +228,24 @@
   background: rgba(0, 0, 0, 0.9);
   display: none;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-spinner span {
+.cwp-surface-classic.cwp-theme-default .cwp-spinner span {
   display: block;
   width: 80px;
   height: 80px;
   background: transparent url(images/loading.gif) 50% 50% no-repeat;
 }
-.hnp-surface-classic.hnp-theme-default.hnp-state-play .hnp-overlay {
+.cwp-surface-classic.cwp-theme-default.cwp-state-play .cwp-overlay {
   background: rgba(0, 0, 0, 0);
 }
-.hnp-surface-classic.hnp-theme-default.hnp-state-play .hnp-overlay .hnp-overlay-control {
+.cwp-surface-classic.cwp-theme-default.cwp-state-play .cwp-overlay .cwp-overlay-control {
   background: none;
   display: none;
 }
-.hnp-surface-classic.hnp-theme-default.hnp-state-play .hnp-button.hnp-play-control span {
+.cwp-surface-classic.cwp-theme-default.cwp-state-play .cwp-button.cwp-play-control span {
   width: 9px;
   background-position: -2px -1px;
 }
-.hnp-surface-classic.hnp-theme-default.hnp-state-fullscreen {
+.cwp-surface-classic.cwp-theme-default.cwp-state-fullscreen {
   position: fixed;
   left: 0;
   right: 0;
@@ -253,13 +253,13 @@
   bottom: 0;
   z-index: 100000;
 }
-.hnp-surface-classic.hnp-theme-default.hnp-state-fullscreen .hnp-button.hnp-fullscreen-control span {
+.cwp-surface-classic.cwp-theme-default.cwp-state-fullscreen .cwp-button.cwp-fullscreen-control span {
   background-position: -22px -17px;
 }
-.hnp-surface-classic.hnp-theme-default.hnp-state-mute .hnp-controls .hnp-volume-control span {
+.cwp-surface-classic.cwp-theme-default.cwp-state-mute .cwp-controls .cwp-volume-control span {
   background-position: -42px -18px;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-overlay {
+.cwp-surface-classic.cwp-theme-default .cwp-overlay {
   cursor: pointer;
   left: 0;
   position: absolute;
@@ -272,10 +272,10 @@
   background: rgba(0, 0, 0, 0);
   overflow: visible;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-overlay:hover .hnp-overlay-control {
+.cwp-surface-classic.cwp-theme-default .cwp-overlay:hover .cwp-overlay-control {
   opacity: 1;
 }
-.hnp-surface-classic.hnp-theme-default .hnp-overlay .hnp-overlay-control {
+.cwp-surface-classic.cwp-theme-default .cwp-overlay .cwp-overlay-control {
   background: url("images/bigplay.png") no-repeat scroll left top transparent;
   height: 100px;
   left: 50%;
@@ -288,7 +288,7 @@
   filter: none!important;
   opacity: .5;
 }
-.hnp-surface-classic.hnp-theme-default div.hnp-time-control {
+.cwp-surface-classic.cwp-theme-default div.cwp-time-control {
   display: block;
   height: 17px;
   width: auto;
@@ -296,34 +296,34 @@
   overflow: hidden;
   text-align: center;
 }
-.hnp-surface-classic.hnp-theme-default div.hnp-scrubber-control {
+.cwp-surface-classic.cwp-theme-default div.cwp-scrubber-control {
   width: 200px;
   padding-top: 6px;
 }
-.hnp-surface-classic.hnp-theme-default div.hnp-scrubber-control span {
+.cwp-surface-classic.cwp-theme-default div.cwp-scrubber-control span {
   display: block;
   position: absolute;
   height: 4px;
   cursor: pointer;
 }
-.hnp-surface-classic.hnp-theme-default div.hnp-scrubber-control .hnp-time-total {
+.cwp-surface-classic.cwp-theme-default div.cwp-scrubber-control .cwp-time-total {
   background: #333;
   background: rgba(50, 50, 50, 0.8);
 }
-.hnp-surface-classic.hnp-theme-default div.hnp-scrubber-control .hnp-scrubber-inner {
+.cwp-surface-classic.cwp-theme-default div.cwp-scrubber-control .cwp-scrubber-inner {
   display: block;
   margin: 5px;
   height: 10px;
 }
-.hnp-surface-classic.hnp-theme-default div.hnp-scrubber-control .hnp-time-loaded {
+.cwp-surface-classic.cwp-theme-default div.cwp-scrubber-control .cwp-time-loaded {
   background: #DDD;
   background: rgba(255, 255, 255, 0.5);
 }
-.hnp-surface-classic.hnp-theme-default div.hnp-scrubber-control .hnp-time-played {
+.cwp-surface-classic.cwp-theme-default div.cwp-scrubber-control .cwp-time-played {
   background: #fff;
   background: rgba(255, 255, 255, 0.8);
 }
-.hnp-surface-classic.hnp-theme-default div.hnp-scrubber-control .hnp-time-handle {
+.cwp-surface-classic.cwp-theme-default div.cwp-scrubber-control .cwp-time-handle {
   position: absolute;
   margin: 0;
   width: 10px;
@@ -334,6 +334,6 @@
   top: -3px;
   text-align: center;
 }
-.hnp-surface-classic.hnp-theme-default div.hnp-scrubber-control .hnp-time-float {
+.cwp-surface-classic.cwp-theme-default div.cwp-scrubber-control .cwp-time-float {
   display: none;
 }

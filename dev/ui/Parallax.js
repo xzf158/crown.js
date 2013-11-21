@@ -1,5 +1,5 @@
 define(['hance', 'jquery', 'greensock/TweenMax'], function (hance, $) {
-    var Scheme = crown.inherit("crown.ui.Parallax", function () { });
+    var Scheme = hance.inherit("crown.ui.Parallax", function () { });
 
     var proto = Scheme.prototype;
     proto.init = function () {

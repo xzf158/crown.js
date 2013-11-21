@@ -137,7 +137,7 @@ define(['hance', 'jquery', 'hammer', 'modernizr', 'greensock/TweenMax'], functio
         return true;
     };
 
-    var Controller = crown.inherit('crown.ui.Carousel', function () { });
+    var Controller = hance.inherit('crown.ui.Carousel', function () { });
     Controller.options = {
         interval: 0, enableStamps: false, enableNaviButtons: true, enableLoop: false, enableTouch: true,tweenDuration:0.7,tweenEase:Expo.easeOut
     };
@@ -177,7 +177,7 @@ define(['hance', 'jquery', 'hammer', 'modernizr', 'greensock/TweenMax'], functio
         }
     };
     var cproto = Controller.prototype;
-    crown.properties(cproto, [{ name: 'currentIndex', getter: true, setter: false },
+    hance.properties(cproto, [{ name: 'currentIndex', getter: true, setter: false },
         { name: 'dimension', getter: true, setter: false },
         { name: 'contentCount', getter: true, setter: false },
         { name: 'stampCount', getter: true, setter: false }]);
@@ -376,9 +376,6 @@ define(['hance', 'jquery', 'hammer', 'modernizr', 'greensock/TweenMax'], functio
         if (this.artist){
             this.artist.layout();
         }
-    };
-    cproto.useless = function () {
-        return !crown.ui.utils.isInDocument(this._element) || !$(this._element).hasClass(Controller.cssClassName);
     };
     cproto.dispose = function () {
         if (this.autoScrollIntervalId !== undefined) {

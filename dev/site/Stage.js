@@ -1,13 +1,11 @@
-define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/paper', 'crown/site/Curtain',
+define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Curtain',
         'crown/ui/Spinner', 'crown/utils/CacheManager', 'crown/site/Zone', 'history'],
-    function (hance, $, UriComparer, Paper, Curtain, Spinner, CacheManager) {
+    function (hance, $, Uri, Zone, Curtain, Spinner, CacheManager) {
     var Scheme = hance.inherit("crown.site.Stage", function () { });
-    Scheme.options = {uriComparer: new UriComparer(),
-        paper: new Paper(),
+    Scheme.options = {
         cacheManager: new CacheManager(),
         classPrefix:'cw-',
-        attrPrefix:'cw-',
-        propPrefix:'cw-'
+        attrPrefix:'cw-'
         };
     var proto = Scheme.prototype;
     hance.properties(proto, [{ name: 'curtain', getter: true, setter: true },
@@ -61,7 +59,7 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/paper', 'crown
         return this._initialPageTitle;
     };
     proto.getZoneScriptPath = function(name){
-        return Uri.combine(metadata.scriptBase, name);
+        return Uri.combine(window.metadata.scriptBase, name);
     };
     proto.processResize = function () {
         this.$window.on('resize', function () {
@@ -111,12 +109,12 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/paper', 'crown
     proto.updateActiveZones = function(){
         $('.' + this._htmlClassNames.zone).each(function(){
             var $this = $(this);
-            $this.toggleClass(this._htmlClassNames.active, $this.prop(this._htmlDataNames.routed) || $this.has(':' + this._htmlDataNames.routed));
+            $this.toggleClass(this._htmlClassNames.active, $this.attr(this._htmlDataNames.routed) || $this.has(':' + this._htmlDataNames.routed));
         });
     };
     proto.setupLinks = function () {
         this.$document.on('click.stage', '.' + this._htmlClassNames.zoneLink, function (e) {
-            return self.linkClickHandler(this, e);
+            return stage.linkClickHandler(this, e);
         });
     };
     proto.updateLinks = function (url) {
@@ -146,30 +144,85 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/paper', 'crown
         }
         this.currentUrl = newUrl;
     };
+    proto.getZoneData = function($element){
+        var eleData = $element.data(), zoneData = {
+            name: eleData[stage._htmlDataNames.name],
+            type: eleData[stage._htmlDataNames.type],
+            script: eleData[stage._htmlDataNames.script],
+            routed: eleData[stage._htmlDataNames.routed],
+            layer: eleData[stage._htmlDataNames.layer]||0
+        };
+        if (zoneData.script != null){
+            delete zoneData.type;
+        }else{
+            if (zoneData.type != null){
+                zoneData.script = Uri.combine(window.metadata.baseUrl, 'scripts/zones/' + zoneData.type);
+            }else{
+                zoneData.instance = new Zone($element, zoneData);
+            }
+        }
+        return zoneData;
+    };
     proto.state_action_zone = function (state) {
         var url = state.url,
-            doneFun = function ($html) {
-                var $newZones = $html.find('.cw-zone');
-                require([paper.data.scene.script], function (Scene) {
-                    var scene = new Scene(),
-                        oldScene = self._scene;
-                    if (paper.data && paper.data.scene && paper.data.scene.name !== undefined){
-                        scene.name = paper.data.scene.name;
-                    }
-                    stage._scene = scene;
-                    stage.$document.attr('title', paper.data.title);
-                    stage.getCurtain().shift();
+            curtain = stage.getCurtain(),
+            spinner = this.getSpinner(),
+            loadZone = function(info){
+                var $deferred = $.Deferred();
+                require([info.data.script], function (Zone) {
+                    var zone = new Zone(info.data);
+                    curtain.push(zone, 'enter');
+                    $deferred.when(zone.load(spinner)).resolve();
                 });
+                return $deferred.promise();
+            },
+            doneFun = function ($html) {
+                var $newZones = $html.find('.' + stage._htmlClassNames.zone),
+                    loadInfos = [];
+                $newZones.each(function(){
+                    var $this = $(this),
+                        thisData = stage.getZoneData($this),
+                        existZone = stage.findZone(thisData.name);
+                    if (existZone && thisData.layer !== existZone.layer){
+                        existZone.sync($this);
+                        existZone.attr(stage._htmlDataNames.routed, thisData.routed);
+                    }else{
+                        curtain.push(existZone, 'exit');
+                    }
+                    if (thisData.instance == null){
+                        loadInfos.push({data:thisData, $element:$this});
+                    }else{
+                        curtain.push(thisData.instance, 'enter');
+                    }
+                });
+                if (loadInfos.length === 0){
+                    return $.Deferred.resolve();
+                }
+                var dfs = [];
+                for(var i = 0, il = loadInfos.length; i < il; i++){
+                    dfs.push(loadZone(loadInfos[i]));
+                }
+                stage.$document.attr('title', $html.find('title').html());
+                var $deferred = $.Deferred().when.apply(null, dfs);
+                return $deferred;
             };
-        var html = this._cacheManager.fetch(state.url);
-        if (paper) {
-            doneFun(html);
-        } else {
-            var deferred = $.ajax({ type: 'GET', url: url, data: { partial: 1/*, referer: state.oldUrl*/ } }).done(function(content){
-                stage.pushPageToCache(url, $('<html />').html(content));
-                doneFun(html);
+        var $html = this._cacheManager.fetch(state.url);
+        curtain.clean();
+        if ($html) {
+            spinner.watch([doneFun($html)]);
+            spinner.commit().done(function(){
+                curtain.shift();
             });
-            this.getSpinner().watch([deferred]);
+        } else {
+            var $deferred = $.ajax({ type: 'GET', url: url, data: { partial: 1/*, referer: state.oldUrl*/ } }).done(function(content){
+                $html = $('<html />').html(content);
+                this._cacheManager.push(url, $html);
+                spinner.watch([doneFun($html)]);
+                spinner.commit().done(function(){
+                    curtain.shift();
+                });
+            });
+            spinner.watch([$deferred]);
         }
     };
     proto.getCurtain = function () {

@@ -44,20 +44,21 @@ define(['require', 'jquery', 'hance', 'crown/player/utils', 'swfobject'], functi
     };
 
     var proto = Scheme.prototype;
-    crown.properties(proto, [{ name: 'isBuilt', getter: true, setter: false }]);
-    crown.properties(proto, [{ name: 'volume', getter: true, setter: true }]);
-    crown.properties(proto, [{ name: 'isMuted', getter: true, setter: false }]);
-    crown.properties(proto, [{ name: 'isPaused', getter: true, setter: false }]);
-    crown.properties(proto, [{ name: 'isEnded', getter: true, setter: false }]);
-    crown.properties(proto, [{ name: 'isFullScreen', getter: true, setter: true }]);
+    hance.properties(proto, [{ name: 'isBuilt', getter: true, setter: false },
+        { name: 'volume', getter: true, setter: true },
+        { name: 'volume', getter: true, setter: true },
+        { name: 'isMuted', getter: true, setter: false },
+        { name: 'isPaused', getter: true, setter: false },
+        { name: 'isEnded', getter: true, setter: false },
+        { name: 'isFullScreen', getter: true, setter: true }]);
     proto.build = function (node, options) {
         this._isBuilt = true;
 
         this.options = options;
         this.node = node;
         var $node = this.$node = $(node),
-            $essence = $('<div>', {'class':'hnp-essence'}).appendTo($node),
-            player = crown.fetch('crown.player');
+            $essence = $('<div>', {'class':'cwp-essence'}).appendTo($node),
+            player = hance.fetch('crown.player');
         options.width = options.width || player.defaultVideoWidth;
         options.height = options.height || player.defaultVideoHeight;
 
@@ -70,12 +71,12 @@ define(['require', 'jquery', 'hance', 'crown/player/utils', 'swfobject'], functi
             'autoRewind': options.autoRewind
         },
         flashParams = { "allowfullscreen": "true", "quality": "high", "wmode":"transparent", "swliveconnect": "true", "bgcolor": "#000000", allowScriptAccess: 'always' },
-        flashAttributes = { "class": "hnp-renderer" },
-        elementId = this.elementId = "hnp-renderer-" + crown.fetch('crown.player.MediaPlayer').playerIndex,
+        flashAttributes = { "class": "cwp-renderer" },
+        elementId = this.elementId = "cwp-renderer-" + hance.fetch('crown.player.MediaPlayer').playerIndex,
         self = this;
         Scheme._instances[elementId] = this;
-        $('<div>', { id: elementId, "class": "hnp-renderer" }).appendTo($essence)
-            .append('<p class="hnp-get-flash"><a target="_blank" href="http://www.adobe.com/go/getflashplayer">' + 
+        $('<div>', { id: elementId, "class": "cwp-renderer" }).appendTo($essence)
+            .append('<p class="cwp-get-flash"><a target="_blank" href="http://www.adobe.com/go/getflashplayer">' + 
                 '<img src="https://www.adobe.com/macromedia/style_guide/images/160x41_Get_Flash_Player.jpg" ' + 
                 'alt="Get Adobe Flash player" /></a></p>');
         swfobject.embedSWF(require.toUrl('./flash/FlashMediaElement.swf') + '?_t=' + (new Date().getTime()),
