@@ -2,9 +2,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
     var Scheme = hance.inherit("crown.site.Scene", function () { }),
         proto = Scheme.prototype;
     Scheme.options = {combineZones:true, zones:null};
-    hance.properties(proto, [{ name: 'name', getter: true, setter: true },
-        { name: 'childZones', getter: true, setter: false },
-        { name: 'parentZone', getter: true, setter: true }]);
+    hance.properties(proto, [{ name: 'name', getter: true, setter: true }]);
     proto.init = function (options) {
         this.options = $.extend({}, Scheme.options, options);
         this._name = this.options.name;

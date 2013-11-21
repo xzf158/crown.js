@@ -83,6 +83,7 @@ define(['hance', 'jquery', 'domReady!'], function (hance, $) {
         this._isWaitingMore = false;
         var progress = this.getProgress();
         this._checkComplete();
+        return this._deferred.promise();
     };
     cproto._checkComplete = function () {
         if (!this._roundCompleted && !this._isWaitingMore) {

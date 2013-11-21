@@ -1,6 +1,6 @@
 define(['jquery', 'hance', 'crown/site/Stage', 'crown/ui/Spinner', 'scripts/SpinnerArtist', 'scripts/Dialog', 'crown/ui/Picture', 'crown/utils/browser', 'modernizr'],
     function ($, hance, Stage, Spinner, SpinnerArtist, Dialog, Picture, browser) {
-var Scheme = hance.inherit("SiteStage", Stage);
+var Scheme = hance.inherit(Stage);
     Scheme.options = { };
     var proto = Scheme.prototype;
     proto.init = function () {
