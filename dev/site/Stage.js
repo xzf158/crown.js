@@ -4,7 +4,11 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/paper', 'crown
     var Scheme = hance.inherit("crown.site.Stage", function () { });
     Scheme.options = {uriComparer: new UriComparer(),
         paper: new Paper(),
-        cacheManager: new CacheManager()};
+        cacheManager: new CacheManager(),
+        classPrefix:'cw-',
+        attrPrefix:'cw-',
+        propPrefix:'cw-'
+        };
     var proto = Scheme.prototype;
     hance.properties(proto, [{ name: 'curtain', getter: true, setter: true },
         { name: 'scene', getter: true, setter: false },
@@ -24,6 +28,21 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/paper', 'crown
         this._initialPageTitle = $('head>title').html();
         this._uriComparer = this.options.uriComparer;
         this._spinner = this.options.spinner;
+
+        this._classPrefix='cw-';
+        this._dataPrefix='cw-';
+        this._htmlClassNames = {
+            zone:this._classPrefix + 'zone',
+            active:this._classPrefix + 'active',
+            zoneLink:this._classPrefix + 'zone-link',
+            clicked:this._classPrefix + 'clicked'
+        };
+        this._htmlDataNames = {
+            name:this._dataPrefix + 'name',
+            layer:this._dataPrefix + 'layer',
+            routed:this._dataPrefix + 'routed',
+            zoneName:this._dataPrefix + 'zone-name'
+        };
 
         window.stage = this;
 
@@ -78,69 +97,37 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/paper', 'crown
         resizeHandler();
     };
     proto.linkClickHandler = function (target, event) {
-        var $element = $(target), href = $element.attr('href') || $element.data('href');
-        if (this._scene) {
-            var zone = this._scene.findZoneByUrl(href);
-            if (zone) {
-                    History.pushState({ event: 'click', actions: ['zone'] }, zone.title, zone.url);
-                    return false;
-            }
-        }
-        if (!this._uriComparer.isUrlEqual(href, this.currentUrl)) {
-                History.pushState({ event: 'click', actions: ['scene'] }, $('head>title').html(), href);
-        }
+        var $element = $(target),
+            href = $element.attr('href') || $element.data('href') || $element.find('a').attr('href');
+        $('.'+ this._htmlClassNames.zoneLink).each(function(){
+            $(this).toggleClass(this._htmlClassNames.clicked, this === target);
+        });
+        History.pushState({ event: 'click', actions: ['zone'] }, '', href);//TODO
         return false;
     };
     proto.addressHandler = function (target, event) {
         this.updateLinks(event.newUrl);
     };
-    //update active zone chain, after url changed and new zones entered, update active zone chain,
-    // it will be an array, it contains all zones name which has 'active' class.
-    proto.updateActiveZoneChain = function(){
-
+    proto.updateActiveZones = function(){
+        $('.' + this._htmlClassNames.zone).each(function(){
+            var $this = $(this);
+            $this.toggleClass(this._htmlClassNames.active, $this.prop(this._htmlDataNames.routed) || $this.has(':' + this._htmlDataNames.routed));
+        });
     };
     proto.setupLinks = function () {
-        var self = this;
-        this.$document.on('click.stage', '.hn-zone-link', function (e) {
+        this.$document.on('click.stage', '.' + this._htmlClassNames.zoneLink, function (e) {
             return self.linkClickHandler(this, e);
-        });
-        this.$this.on('address.stage', function (e) {
-            return self.addressHandler(this, e);
         });
     };
     proto.updateLinks = function (url) {
         var url = url || this.currentUrl;
         //console.log('=======update link,', url)
-        $('.hn-zone-link').each(function () {
+        $('.' + this._htmlClassNames.zoneLink).each(function () {
             var $this = $(this),
-                zoneName = $this.attr('cw-zone-name'),
-                href = $this.attr('href') || $this.data('href'),
-                compareValue = stage._uriComparer.compareUrl(href, url);
-            if ($this.hasClass('cw-zone-link')) {
-                if ($item.length > 0) {
-                    $item.toggleClass('active', compareValue === 0);
-                } else {
-                    $this.toggleClass('active', compareValue === 0);
-                }
-            } else {
-                if ($item.length > 0) {
-                    $item.toggleClass('active', compareValue === 0 || compareValue === -1);
-                } else {
-                    $this.toggleClass('active', compareValue === 0 || compareValue === -1);
-                }
-            }
+                zoneName = $this.attr(stage._htmlDataNames.zoneName);
+            $this.toggleClass(stage._htmlClassName.active,
+                $('.' + this._htmlClassNames.zone + '[' + this._htmlDataNames.routed + '][' + this._htmlDataNames.name + '=' + $this.attr(this._htmlDataNames.zoneName) + ']'));
         });
-    };
-    proto.getZones = function () {
-        return this._zones;
-    };
-    proto.findZoneByName = function (zoneName) {
-        for (var i = 0, il = this._zones.length; i < il; i++) {
-            var zone = this._zones[i];
-            if (zone.name === zoneName) {
-                return zone;
-            }
-        }
     };
     proto.handleStateChange = function (e) {
         var state = History.getState(),
@@ -184,19 +171,6 @@ define(['hance', 'jquery', 'crown/utils/UriComparer', 'crown/site/paper', 'crown
             });
             this.getSpinner().watch([deferred]);
         }
-    };
-    proto.getCWAttr = function($element, attrName){
-        var attrs = $element.attr(), attrValue = attrs['cw-' + attrName];
-        if (attrValue !== undefined){
-            return attrValue;
-        }
-        attrValue = attrs['data-cw-'+attrName];
-        if (attrValue !== undefined){
-            return attrValue;
-        }
-    };
-    proto.hasCWProp = function($element, propName){
-        return $element.prop('cw-' + propName) || $element.hasClass('cw-' + propName);
     };
     proto.getCurtain = function () {
         if (this._curtain === undefined) {

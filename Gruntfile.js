@@ -2,9 +2,6 @@
 var util = require('./lib/grunt/utils.js');
 
 module.exports = function (grunt) {
-    //var HN_VERSION = util.getVersion();
-    //var dist = 'dist-' + HN_VERSION.full;
-
     util.init();
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
