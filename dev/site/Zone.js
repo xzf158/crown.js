@@ -3,18 +3,50 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
         proto = Scheme.prototype;
     Scheme.options = {combineZones:true, zones:null};
     hance.properties(proto, [{ name: 'name', getter: true, setter: true }]);
-    proto.init = function (options) {
+    proto.init = function ($element, options) {
         this.options = $.extend({}, Scheme.options, options);
         this._name = this.options.name;
-        this._childZones = [];
-        this._phases = ['load','enter','abort','exit'];
+        this._layer = this.options.layer;
+        this._order = this.options.order;
+        this._cached = this.options.cached;
+        this._routed = this.options.routed;
+        this.$element = $element;
     };
     proto.load = function () {
     };
     proto.enter = function () {
+        console.log('======enter');
+        if (stage.$body.find('[' + stage._htmlDataNames.name + '=' + this._name + ']').length === 0){
+            var parentId = this.$element.parent().attr('id'), $parent;
+            if (parentId){
+                $parent = $(parentId);
+            }else{
+                $parent = $('[' + stage._htmlDataNames.layer + '=' + this._layer + ']').parent();
+            }
+            if ($parent.length > 0){
+                var $children = $parent.children(), inserted = false;
+                for(var i = 0, il = $children.length; i < il; i++){
+                    var $child = $children.eq(i), 
+                        order = parseInt($child.attr(stage._htmlDataNames.order));
+                    if ($child.hasClass(stage._htmlClassNames.zone) && order >= this._order){
+                        this.$element.insertBefore($child);
+                        inserted = true;
+                        break;
+                    }
+                }
+                if (!inserted){
+                    this.$element.appendTo($parent);
+                }
+            }else{
+                console.warn('Can not find zone parent element from current dom!');
+            }
+        }
         return $.Deferred().resolve();
     };
-    proto.sync = function(element){
+    proto.sync = function($element){
+
+    };
+    proto.active = function(){
 
     };
     proto.abort = function () {

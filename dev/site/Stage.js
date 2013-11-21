@@ -48,10 +48,9 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                 }
             };
             this._cacheManager = this.options.cacheManager;
-            this._cacheScenes = this.options.cacheScenes;
             this._initialPageTitle = $('head>title').html();
-            this._uriComparer = this.options.uriComparer;
             this._spinner = this.options.spinner;
+            this._curtain = this.options.curtain;
 
             this._classPrefix = 'cw-';
             this._dataPrefix = 'cw-';
@@ -75,24 +74,23 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
             this.currentUrl = location.href;
             this.setupLinks();
 
-            this.afterHtmlLoaded(this.$document);
+            var spinner = this.getSpinner(), 
+                curtain = this.getCurtain();
+            spinner.watch([this.afterHtmlLoaded(this.$document)]);
+            spinner.commit().done(function() {
+                curtain.shift();
+            });
             History.Adapter.bind(window, 'statechange', function(e) {
                 stage.handleStateChange(e);
             });
 
             this.processResize();
         };
-        proto.pushPageToCache = function(url, paper) {
-            if (this._cacheScenes === true ||
-                ($.isArray(this._cacheScenes) && this._cacheScenes.indexOf(paper.data.scene.name) >= 0)) {
-                this._cacheManager.push(url, paper);
-            }
-        };
         proto.getInitialPageTitle = function() {
             return this._initialPageTitle;
         };
-        proto.getZoneScriptPath = function(name) {
-            return Uri.combine(window.metadata.scriptBase, name);
+        proto.getZoneScriptPath = function(type) {
+            return Uri.combine(window.metadata.baseUrl, 'scripts/zones/' + type);
         };
         proto.processResize = function() {
             this.$window.on('resize', function() {
@@ -205,13 +203,14 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                     script: eleData[stage._htmlDataNames.script],
                     routed: eleData[stage._htmlDataNames.routed],
                     cached: eleData[stage._htmlDataNames.cached],
+                    order: eleData[stage._htmlDataNames.order],
                     layer: eleData[stage._htmlDataNames.layer] || 0
                 };
             if (zoneData.script != null) {
                 delete zoneData.type;
             } else {
                 if (zoneData.type != null) {
-                    zoneData.script = Uri.combine(window.metadata.baseUrl, 'scripts/zones/' + zoneData.type);
+                    zoneData.script = this.getZoneScriptPath(zoneData.type);// Uri.combine(window.metadata.baseUrl, 'scripts/zones/' + zoneData.type);
                 } else {
                     zoneData.instance = new Zone($element, zoneData);
                 }
@@ -248,13 +247,16 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                 var $this = $(this),
                     thisData = stage.getZoneData($this),
                     existZone = stage.findZone(thisData.name);
-                if (existZone && thisData.layer !== existZone.layer) {
-                    existZone.sync($this);
-                    existZone.attr(stage._htmlDataNames.routed, thisData.routed);
-                } else {
-                    curtain.push(existZone, 'exit');
-                    stage._allZones.splice(stage._allZones.indexOf(existZone), 1);
+                if (existZone) {
+                    if (thisData.layer !== existZone.layer){
+                        existZone.sync($this);
+                        existZone.attr(stage._htmlDataNames.routed, thisData.routed);
+                    }else{
+                        curtain.push(existZone, 'exit');
+                        stage._allZones.splice(stage._allZones.indexOf(existZone), 1);
+                    }
                 }
+
                 if (thisData.instance == null) {
                     loadInfos.push({
                         data: thisData,
@@ -279,10 +281,10 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
             var url = state.url,
                 curtain = stage.getCurtain(),
                 spinner = stage.getSpinner();
-            var $html = this._cacheManager.fetch(state.url);
+            var html = this._cacheManager.fetch(state.url);
             curtain.clean();
-            if ($html) {
-                spinner.watch([this.afterHtmlLoaded($html)]);
+            if (html) {
+                spinner.watch([this.afterHtmlLoaded($('<html />').html(html))]);
                 spinner.commit().done(function() {
                     curtain.shift();
                 });
@@ -294,9 +296,8 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                         partial: 1 /*, referer: state.oldUrl*/
                     }
                 }).done(function(content) {
-                    $html = $('<html />').html(content);
-                    stage._cacheManager.push(url, $html);
-                    spinner.watch([stage.afterHtmlLoaded($html)]);
+                    stage._cacheManager.push(url, content);
+                    spinner.watch([stage.afterHtmlLoaded($('<html />').html(content))]);
                     spinner.commit().done(function() {
                         curtain.shift();
                     });
