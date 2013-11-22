@@ -211,8 +211,6 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                     order: $node.attr(stage._htmlDataNames.order),
                     layer: $node.attr(stage._htmlDataNames.layer) || 0
                 };
-            console.log($node.html());
-            console.log(zoneData);
             if (zoneData.script != null) {
                 delete zoneData.type;
             } else {
