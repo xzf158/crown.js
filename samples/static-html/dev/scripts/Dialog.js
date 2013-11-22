@@ -5,8 +5,8 @@ define(["jquery", "hance", 'greensock/TweenMax'], function ($, hance) {
     proto.init = function () {
         var self = this;
         this.$body = $(document.body);
-        this.$element = $('<div class="dialog-frame"><div class="mask"></div></div>').appendTo(this.$body).css({'z-index': 99999, opacity:0, display:'none', position:'absolute'});
-        //this.$element.on('click', function () {
+        this.$node = $('<div class="dialog-frame"><div class="mask"></div></div>').appendTo(this.$body).css({'z-index': 99999, opacity:0, display:'none', position:'absolute'});
+        //this.$node.on('click', function () {
         //    self.close();
         //});
     };
@@ -35,9 +35,9 @@ define(["jquery", "hance", 'greensock/TweenMax'], function ($, hance) {
         });
         this.resize();
         TweenMax.killTweensOf($content[0]);
-        TweenMax.killTweensOf(this.$element[0]);
+        TweenMax.killTweensOf(this.$node[0]);
         TweenMax.fromTo($content[0], .6, { 'z-index': 199999, opacity: 0, display: 'block' }, { opacity: 1, overwrite: 1, delay:.2, ease: Quart.easeIn });
-        TweenMax.fromTo(this.$element[0], .5, { display: 'block', opacity: 0 }, { opacity: 1, overwrite: 1, ease: Quart.easeIn });
+        TweenMax.fromTo(this.$node[0], .5, { display: 'block', opacity: 0 }, { opacity: 1, overwrite: 1, ease: Quart.easeIn });
     };
     proto.close = function () {
         if (this.$content && this.$content.length > 0) {
@@ -47,9 +47,9 @@ define(["jquery", "hance", 'greensock/TweenMax'], function ($, hance) {
                 }
             });
         }
-        TweenMax.to(this.$element, .5, {
-            opacity: 0, overwrite: 1, ease: Quart.easeInOut, onCompleteParams: [this.$element], onComplete: function ($element) {
-                $element.css({ display: 'none' });
+        TweenMax.to(this.$node, .5, {
+            opacity: 0, overwrite: 1, ease: Quart.easeInOut, onCompleteParams: [this.$node], onComplete: function ($node) {
+                $node.css({ display: 'none' });
             }
         });
         this.$content = null;
@@ -65,7 +65,7 @@ define(["jquery", "hance", 'greensock/TweenMax'], function ($, hance) {
                 left = Math.max(0, (stage.cache.document.width - this.$content.outerWidth()) / 2);
                 this.$content.css({ top: top, left: left, position: 'absolute' });
             }
-            this.$element.css({ width: stage.cache.document.width, height: stage.cache.document.height });
+            this.$node.css({ width: stage.cache.document.width, height: stage.cache.document.height });
         }
     };
 

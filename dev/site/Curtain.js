@@ -15,9 +15,9 @@ define(['hance', 'jquery', 'domReady!'], function (hance, $) {
     proto.sort = function(){
         this._queue.sort(function(a, b){
             if (a.action === b.action){
-                if (a.$element.find(b.$element).length > 0){
+                if (a.$node.find(b.$node).length > 0){
                     return 1;
-                }else if (b.$element.find(a.$element).length > 0){
+                }else if (b.$node.find(a.$node).length > 0){
                     return -1;
                 }
                 return 0;
@@ -33,6 +33,7 @@ define(['hance', 'jquery', 'domReady!'], function (hance, $) {
         this.sort();
         for(var i = 0, il = this._queue.length; i < il; i++){
             var item = this._queue[i];
+            
             item.zone[item.action].apply(item.zone, item.args);
         }
         this._queue = [];

@@ -3,41 +3,37 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
         proto = Scheme.prototype;
     Scheme.options = {combineZones:true, zones:null};
     hance.properties(proto, [{ name: 'name', getter: true, setter: true }]);
-    proto.init = function ($element, options) {
+    proto.init = function ($node, options) {
         this.options = $.extend({}, Scheme.options, options);
         this._name = this.options.name;
         this._layer = this.options.layer;
         this._order = this.options.order;
         this._cached = this.options.cached;
         this._routed = this.options.routed;
-        this.$element = $element;
+        this._parentNode = this.options.parentNode;
+        this.$node = $node;
     };
     proto.load = function () {
         return $.Deferred().resolve();
     };
     proto.ensureElementInDom = function(){
-        if (stage.$document.find(this.$element).length > 0){
+        if (stage.$document.find(this.$node).length > 0){
             return;
         }
-        var parentId = this.$element.parent().attr('id'), $parent;
-        if (parentId){
-            $parent = $('#' + parentId);
-        }else{
-            $parent = $('[' + stage._htmlDataNames.layer + '=' + this._layer + ']').parent();
-        }
+        var $parent = stage.findZoneNodeParentInDom(this.$node);
         if ($parent.length > 0){
             var $children = $parent.children(), inserted = false;
             for(var i = 0, il = $children.length; i < il; i++){
                 var $child = $children.eq(i), 
                     order = parseInt($child.attr(stage._htmlDataNames.order));
                 if ($child.hasClass(stage._htmlClassNames.zone) && order >= this._order){
-                    this.$element.insertBefore($child);
+                    this.$node.insertBefore($child);
                     inserted = true;
                     break;
                 }
             }
             if (!inserted){
-                this.$element.appendTo($parent);
+                this.$node.appendTo($parent);
             }
         }else{
             console.warn('Can not find zone parent element from current dom!');
@@ -48,7 +44,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
         this.ensureElementInDom();
         return $.Deferred().resolve();
     };
-    proto.sync = function($element){
+    proto.sync = function($node){
 
     };
     proto.active = function(){
@@ -59,7 +55,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
     };
     proto.exit = function () {
         console.log('exiting');
-        this.$element.remove();
+        this.$node.remove();
         this.dispose();
         return $.Deferred().resolve();
     };
@@ -72,28 +68,28 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
         this._zones = null;
     };
     proto.getZoneElement = function (html) {
-        return html[0].element;
+        return html[0].node;
     };
-    proto.inisertZoneElement = function (html, zone) {
+    proto.inisertZoneNode = function (html, zone) {
         var $existZones = zone.$container.find('.hn-zone'), $html = $(html);
         if ($existZones.length > 0) {
             for (var i = 0, il = $existZones.length; i < il; i++) {
                 var $prevZone = $existZones.eq(i),
                     $nextZone = (i === il - 1 ? null : $existZones.eq(i + 1));
                 if ($prevZone.data('order') <= zone.order && ($nextZone == null || $nextZone.data('order') >= zone.order)) {
-                    zone.$element = $html.insertAfter($prevZone).data('order', zone.order);
+                    zone.$node = $html.insertAfter($prevZone).data('order', zone.order);
                 } else if (i === 0 && $prevZone.data('order') > zone.order) {
-                    zone.$element = $html.insertBefore($prevZone).data('order', zone.order);
+                    zone.$node = $html.insertBefore($prevZone).data('order', zone.order);
                 }
             }
         } else {
-            zone.$element = $html.appendTo(zone.$container).data('order', zone.order);
+            zone.$node = $html.appendTo(zone.$container).data('order', zone.order);
         }
     };
     proto.loadZone = function (zone) {
         var self = this,
             doneFun = function (paper) {
-                var data = paper.data, element = self.getZoneElement(paper.html),
+                var data = paper.data, node = self.getZoneElement(paper.html),
                     $existZones = zone.$container.find('.hn-zone');
                 zone.title = data.title;
                 if (zone.title === undefined) {
@@ -103,7 +99,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
                 if ($('.hn-zone[data-name=' + zone.name + ']').length > 0) {//check again to make sure no other request added zone.
                     return;
                 }
-                self.inisertZoneElement(element, zone);
+                self.inisertZoneNode(node, zone);
             };
         var paper = stage.getCacheManager().fetch(zone.url);
         if (paper) {
@@ -125,7 +121,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
                     for(var i = 0, il = self._zones.length; i < il; i++){
                         var zone = self._zones[i];
                         if (zone.loaded){
-                            zone.$element.remove();
+                            zone.$node.remove();
                         }
                     }
                 };
@@ -136,22 +132,22 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
                 spinner.commit();
             } else {
                 removeOtherZones();
-                zone.$container.append(zone.$element);
+                zone.$container.append(zone.$node);
             }
         }else{
             if (oldZone){
-                oldZone.$element.removeClass('active');
+                oldZone.$node.removeClass('active');
             }
         }
-        zone.$element.addClass('active');
+        zone.$node.addClass('active');
         this._activeZone = zone;
         return $deferred === undefined ? $.Deferred().resolve() : $deferred;
     };
     proto.gotoZone = function (zone) {
         if (this._combineZones) {
-            var scrollTop = zone.$element.data('zone-top');
+            var scrollTop = zone.$node.data('zone-top');
             if (scrollTop === undefined) {
-                scrollTop = zone.$element.offset().top;
+                scrollTop = zone.$node.offset().top;
             }
             this.setActiveZone(zone);
             return stage.scrollPage({ top: scrollTop }, true);

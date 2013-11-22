@@ -181,18 +181,18 @@ define(['hance', 'jquery', 'hammer', 'modernizr', 'greensock/TweenMax'], functio
         { name: 'dimension', getter: true, setter: false },
         { name: 'contentCount', getter: true, setter: false },
         { name: 'stampCount', getter: true, setter: false }]);
-    cproto.init = function (element, options) {
-        var $element = this._element = $(element);
-        if ($element.length === 0) {
+    cproto.init = function (node, options) {
+        var $node = this._node = $(node);
+        if ($node.length === 0) {
             throw new Error('Element can not be empty!');
         }
-        if($element.data("carousel-state") === 'built') {
+        if($node.data("carousel-state") === 'built') {
             return;
         }
         var self = this;
-        var options = this.options = $.extend({}, Controller.options, $element.data(), options);
-        //$element.data("carousel-state", "built")[0];
-        var artist = this.artist = options.artist || new Artist(element, options);
+        var options = this.options = $.extend({}, Controller.options, $node.data(), options);
+        //$node.data("carousel-state", "built")[0];
+        var artist = this.artist = options.artist || new Artist(node, options);
 
         artist.ready();
         this._isTouchEnded = true;
@@ -208,7 +208,7 @@ define(['hance', 'jquery', 'hammer', 'modernizr', 'greensock/TweenMax'], functio
                         case 'dragleft':
                             //console.log('>>>>>>>>>>>drag')
                             // stick to the finger
-                            var dragOffset = Math.min(Math.max(ev.gesture.deltaX, -$element.width()), $element.width());
+                            var dragOffset = Math.min(Math.max(ev.gesture.deltaX, -$node.width()), $node.width());
 
                             // slow down at the first and last pane
                             if ((self._currentIndex === 0 && ev.gesture.direction === Hammer.DIRECTION_RIGHT) ||
@@ -257,7 +257,7 @@ define(['hance', 'jquery', 'hammer', 'modernizr', 'greensock/TweenMax'], functio
                     }
                 });
         }
-        //$element.on('mousedown', function () {
+        //$node.on('mousedown', function () {
         //    $(document).one('mouseup', function () {
         //        //console.log('========document mouse up', self._isTouchEnded)
         //        if (self._isTouchEnded !== false) return;

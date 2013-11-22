@@ -39,36 +39,36 @@ define(['hance', 'crown/ui/utils', 'jquery'], function (hance, utils, $) {
     };
 
     var proto = Scheme.prototype;
-    hance.properties(proto, [{ name: 'element', getter: true, setter: false },
+    hance.properties(proto, [{ name: 'node', getter: true, setter: false },
     { name: 'options', getter: true, setter: false },
     { name: 'loaded', getter: true, setter: false }
     ]);
-    proto.init = function (element, options) {
-        var instance = Scheme.get(element);
+    proto.init = function (node, options) {
+        var instance = Scheme.get(node);
         if (instance) {
             return instance;
         }
         Scheme._instances.push(this);
-        this._element = element;
+        this._node = node;
         this._options = options;
 
         this.build(options);
     };
     proto.build = function (options) {
-        var element = this._element;
-        var $element = $(element).attr('data-built', true);
-        options = this._options = $.extend({}, Scheme.options, $element.data(), options);
+        var node = this._node;
+        var $node = $(node).attr('data-built', true);
+        options = this._options = $.extend({}, Scheme.options, $node.data(), options);
         this._renderMode = options.renderMode;
 
         if (this._renderMode === 'canvas' && (Modernizr && !Modernizr.canvas)) {
             this._renderMode = 'img';
         }
 
-        if (['absolute', 'relative'].indexOf($element.css('position')) < 0 && options.spinner) {
-            $element.css('position', 'relative');
+        if (['absolute', 'relative'].indexOf($node.css('position')) < 0 && options.spinner) {
+            $node.css('position', 'relative');
         }
         if (options.spinner) {
-            $element.html('<div class="hn-spinner"><img src="' + options.spinner + '" alt="loading..." /></div>');
+            $node.html('<div class="hn-spinner"><img src="' + options.spinner + '" alt="loading..." /></div>');
         }
         if (options.autoLoad) {
             this.load();
@@ -80,7 +80,7 @@ define(['hance', 'crown/ui/utils', 'jquery'], function (hance, utils, $) {
         }
         this._loaded = true;
 
-        var $renderer = $(this._element).find('>.hn-renderer');
+        var $renderer = $(this._node).find('>.hn-renderer');
         if ($renderer.length > 0) {
             this._renderer = $renderer[0];
         } else {
@@ -91,7 +91,7 @@ define(['hance', 'crown/ui/utils', 'jquery'], function (hance, utils, $) {
             }
         }
 
-        $(this._element).attr('data-loaded', true).find('.hn-spinner').remove();
+        $(this._node).attr('data-loaded', true).find('.hn-spinner').remove();
         if (this._texture.width > 0 && this._texture.height > 0) {
             $(this._renderer).attr({ 'data-stage-width': this._texture.width, 'data-stage-height': this._texture.height });
         }

@@ -93,7 +93,10 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
             return this._initialPageTitle;
         };
         proto.getZoneScriptPath = function(type) {
-            return Uri.combine(window.metadata.baseUrl, 'scripts/zones/' + type);
+            return Uri.combine(window.metadata.baseUrl, 'scripts/zones/' + this.toPascalCase(type));
+        };
+        proto.toPascalCase = function(name){
+            return name.charAt(0).toUpperCase() + name.substr(1).toLowerCase();
         };
         proto.processResize = function() {
             this.$window.on('resize', function() {
@@ -129,9 +132,9 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
             resizeHandler();
         };
         proto.linkClickHandler = function(target, event) {
-            var $element = $(target),
-                href = $element.attr('href') || $element.data('href') || $element.find('a').attr('href'),
-                zoneName = $element.attr(this._htmlDataNames.zoneName),
+            var $node = $(target),
+                href = $node.attr('href') || $node.data('href') || $node.find('a').attr('href'),
+                zoneName = $node.attr(this._htmlDataNames.zoneName),
                 existZone = this.findZone(zoneName);
             if (existZone) {
                 existZone.active();
@@ -198,17 +201,17 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
             }
             this.currentUrl = newUrl;
         };
-        proto.getZoneData = function($element) {
+        proto.getZoneData = function($node) {
             var zoneData = {
-                    name: $element.attr(stage._htmlDataNames.name),
-                    type: $element.attr(stage._htmlDataNames.type),
-                    script: $element.attr(stage._htmlDataNames.script),
-                    routed: $element.attr(stage._htmlDataNames.routed),
-                    cached: $element.attr(stage._htmlDataNames.cached),
-                    order: $element.attr(stage._htmlDataNames.order),
-                    layer: $element.attr(stage._htmlDataNames.layer) || 0
+                    name: $node.attr(stage._htmlDataNames.name),
+                    type: $node.attr(stage._htmlDataNames.type),
+                    script: $node.attr(stage._htmlDataNames.script),
+                    routed: $node.attr(stage._htmlDataNames.routed),
+                    cached: $node.attr(stage._htmlDataNames.cached),
+                    order: $node.attr(stage._htmlDataNames.order),
+                    layer: $node.attr(stage._htmlDataNames.layer) || 0
                 };
-            console.log($element.html());
+            console.log($node.html());
             console.log(zoneData);
             if (zoneData.script != null) {
                 delete zoneData.type;
@@ -216,10 +219,19 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                 if (zoneData.type != null) {
                     zoneData.script = this.getZoneScriptPath(zoneData.type);// Uri.combine(window.metadata.baseUrl, 'scripts/zones/' + zoneData.type);
                 } else {
-                    zoneData.instance = new Zone($element, zoneData);
+                    zoneData.instance = new Zone($node, zoneData);
                 }
             }
             return zoneData;
+        };
+        proto.findZoneNodeParentInDom = function($node){
+            var parentId = $node.parent().attr('id'), $parent;
+            if (parentId){
+                $parent = $('#' + parentId);
+            }else{
+                $parent = $('[' + stage._htmlDataNames.layer + '=' + this._layer + ']').parent();
+            }
+            return $parent;
         };
         proto.afterHtmlLoaded = function($html) {
             var curtain = stage.getCurtain(),
@@ -235,7 +247,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                         }
                     }
                     require([info.data.script], function(Zone) {
-                        var zone = new Zone(info.$element, info.data);
+                        var zone = new Zone(info.$node, info.data);
                         curtain.push(zone, 'enter');
                         stage._allZones.push(zone);
                         if (info.data.cached){
@@ -259,12 +271,24 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                         curtain.push(existZone, 'exit');
                         stage._allZones.splice(stage._allZones.indexOf(existZone), 1);
                     }
+                }else{
+                    var selector ='.'+ stage._htmlClassNames.zone;
+                    if (thisData.layer !== 0 || thisData.layer !== '0'){
+                        selector += '[' + stage._htmlDataNames.layer + '=' + thisData.layer + ']';
+                    }
+                    stage.findZoneNodeParentInDom($this).find(selector).each(function(){
+                        existZone = stage.findZone($(this).attr(stage._htmlDataNames.name));
+                        if (existZone){
+                            curtain.push(existZone, 'exit');
+                            stage._allZones.splice(stage._allZones.indexOf(existZone), 1);
+                        }
+                    });
                 }
 
                 if (thisData.instance == null) {
                     loadInfos.push({
                         data: thisData,
-                        $element: $this
+                        $node: $this
                     });
                 } else {
                     curtain.push(thisData.instance, 'enter');
