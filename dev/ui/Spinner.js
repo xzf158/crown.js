@@ -159,7 +159,7 @@ define(['hance', 'jquery', 'domReady!'], function (hance, $) {
         if (loadEventName) {
             $(asset).one(loadEventName, handler);
         } else {
-            asset.done(handler).error(handler);
+            asset.done(handler).fail(handler);
         }
         this._watchedList.push(witem);
     };

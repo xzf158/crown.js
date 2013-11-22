@@ -13,6 +13,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
         this.$element = $element;
     };
     proto.load = function () {
+        return $.Deferred().resolve();
     };
     proto.ensureElementInDom = function(){
         if (stage.$document.find(this.$element).length > 0){
@@ -57,7 +58,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
 
     };
     proto.exit = function () {
-        //console.warn('you must overwrite this method!');
+        console.log('exiting');
         this.$element.remove();
         this.dispose();
         return $.Deferred().resolve();

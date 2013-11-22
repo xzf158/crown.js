@@ -1,4 +1,4 @@
-﻿define(['jquery', 'hance', 'crown/ui/crown.ui.utils', 'crown/shim/animation'], function ($, hance, utils) {
+﻿define(['jquery', 'hance', 'crown/ui/utils', 'crown/shim/animation'], function ($, hance, utils) {
     var Scheme = hance.inherit("crown.ui.Sprite", function () { });
     Scheme.options = { startFrame: 0, endFrame: -1, loops: 1, loopGap:0, interval: 24, renderMode: 'canvas', renderSequent: true, direction: 1 };
     Scheme.cssClassName = 'cw-sprite';

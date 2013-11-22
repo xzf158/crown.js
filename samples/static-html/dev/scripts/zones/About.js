@@ -1,5 +1,5 @@
-define(['hance', 'crown/site/Scene', 'crown.ui/Picture'], function (hance, Scene, Picture) {
-    var Scheme = hance.inherit("scene.About", Scene);
+define(['hance', 'crown/site/Zone', 'crown/ui/Picture'], function (hance, Zone, Picture) {
+    var Scheme = hance.inherit(Zone);
     var proto = Scheme.prototype;
     proto.init = function () {
         Scheme.uber.init.apply(this, arguments);

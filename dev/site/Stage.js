@@ -62,9 +62,12 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
             };
             this._htmlDataNames = {
                 name: this._dataPrefix + 'name',
+                type: this._dataPrefix + 'type',
+                script: this._dataPrefix + 'script',
                 layer: this._dataPrefix + 'layer',
                 routed: this._dataPrefix + 'routed',
                 cached: this._dataPrefix + 'cached',
+                order: this._dataPrefix + 'order',
                 zoneName: this._dataPrefix + 'zone-name'
             };
             this._allZones = [];
@@ -143,7 +146,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                 History.pushState({
                     event: 'click',
                     actions: ['zone']
-                }, '', href); //TODO
+                }, $('head title').html(), href); //TODO
             }
             return false;
         };
@@ -196,16 +199,17 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
             this.currentUrl = newUrl;
         };
         proto.getZoneData = function($element) {
-            var eleData = $element.data(),
-                zoneData = {
-                    name: eleData[stage._htmlDataNames.name],
-                    type: eleData[stage._htmlDataNames.type],
-                    script: eleData[stage._htmlDataNames.script],
-                    routed: eleData[stage._htmlDataNames.routed],
-                    cached: eleData[stage._htmlDataNames.cached],
-                    order: eleData[stage._htmlDataNames.order],
-                    layer: eleData[stage._htmlDataNames.layer] || 0
+            var zoneData = {
+                    name: $element.attr(stage._htmlDataNames.name),
+                    type: $element.attr(stage._htmlDataNames.type),
+                    script: $element.attr(stage._htmlDataNames.script),
+                    routed: $element.attr(stage._htmlDataNames.routed),
+                    cached: $element.attr(stage._htmlDataNames.cached),
+                    order: $element.attr(stage._htmlDataNames.order),
+                    layer: $element.attr(stage._htmlDataNames.layer) || 0
                 };
+            console.log($element.html());
+            console.log(zoneData);
             if (zoneData.script != null) {
                 delete zoneData.type;
             } else {
@@ -237,7 +241,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                         if (info.data.cached){
                             stage._cacheManager.push('zone|' + info.data.script, zone);
                         }
-                        $deferred.when(zone.load(spinner)).resolve();
+                        $deferred.resolve(zone.load(spinner));
                     });
                     return $deferred.promise();
                 },
@@ -274,8 +278,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                 dfs.push(loadZone(loadInfos[i]));
             }
             stage.$document.attr('title', $html.find('title').html());
-            var $deferred = $.Deferred().when.apply(null, dfs);
-            return $deferred;
+            return $.when.apply(null, dfs);
         };
         proto.state_action_zone = function(state) {
             var url = state.url,
