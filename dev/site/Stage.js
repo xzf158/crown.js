@@ -231,7 +231,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                         }
                     }
                     require([info.data.script], function(Zone) {
-                        var zone = new Zone(info.data);
+                        var zone = new Zone(info.$element, info.data);
                         curtain.push(zone, 'enter');
                         stage._allZones.push(zone);
                         if (info.data.cached){
@@ -249,7 +249,7 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'crown/site/Zone', 'crown/site/Cur
                     existZone = stage.findZone(thisData.name);
                 if (existZone) {
                     if (thisData.layer !== existZone.layer){
-                        existZone.sync($this);
+                        curtain.push(existZone, 'sync', [$this]);
                         existZone.attr(stage._htmlDataNames.routed, thisData.routed);
                     }else{
                         curtain.push(existZone, 'exit');

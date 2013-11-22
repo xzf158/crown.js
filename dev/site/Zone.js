@@ -14,33 +14,37 @@ define(['hance', 'jquery', 'crown/utils/Uri', 'hammer', 'history', 'crown/shim/a
     };
     proto.load = function () {
     };
+    proto.ensureElementInDom = function(){
+        if (stage.$document.find(this.$element).length > 0){
+            return;
+        }
+        var parentId = this.$element.parent().attr('id'), $parent;
+        if (parentId){
+            $parent = $('#' + parentId);
+        }else{
+            $parent = $('[' + stage._htmlDataNames.layer + '=' + this._layer + ']').parent();
+        }
+        if ($parent.length > 0){
+            var $children = $parent.children(), inserted = false;
+            for(var i = 0, il = $children.length; i < il; i++){
+                var $child = $children.eq(i), 
+                    order = parseInt($child.attr(stage._htmlDataNames.order));
+                if ($child.hasClass(stage._htmlClassNames.zone) && order >= this._order){
+                    this.$element.insertBefore($child);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted){
+                this.$element.appendTo($parent);
+            }
+        }else{
+            console.warn('Can not find zone parent element from current dom!');
+        }
+    };
     proto.enter = function () {
         console.log('======enter');
-        if (stage.$body.find('[' + stage._htmlDataNames.name + '=' + this._name + ']').length === 0){
-            var parentId = this.$element.parent().attr('id'), $parent;
-            if (parentId){
-                $parent = $(parentId);
-            }else{
-                $parent = $('[' + stage._htmlDataNames.layer + '=' + this._layer + ']').parent();
-            }
-            if ($parent.length > 0){
-                var $children = $parent.children(), inserted = false;
-                for(var i = 0, il = $children.length; i < il; i++){
-                    var $child = $children.eq(i), 
-                        order = parseInt($child.attr(stage._htmlDataNames.order));
-                    if ($child.hasClass(stage._htmlClassNames.zone) && order >= this._order){
-                        this.$element.insertBefore($child);
-                        inserted = true;
-                        break;
-                    }
-                }
-                if (!inserted){
-                    this.$element.appendTo($parent);
-                }
-            }else{
-                console.warn('Can not find zone parent element from current dom!');
-            }
-        }
+        this.ensureElementInDom();
         return $.Deferred().resolve();
     };
     proto.sync = function($element){

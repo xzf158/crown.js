@@ -12,13 +12,14 @@ define(['hance', 'jquery', 'domReady!'], function (hance, $) {
     proto.push = function(zone, action, args){
         this._queue.push({zone:zone, action:action, args:args});
     };
-    proto.build = function(){
-
-    };
-    proto.shift = function () {
-        console.log('====shift');
+    proto.sort = function(){
         this._queue.sort(function(a, b){
             if (a.action === b.action){
+                if (a.$element.find(b.$element).length > 0){
+                    return 1;
+                }else if (b.$element.find(a.$element).length > 0){
+                    return -1;
+                }
                 return 0;
             }else if (a.action === 'enter'){
                 return -1;
@@ -26,6 +27,10 @@ define(['hance', 'jquery', 'domReady!'], function (hance, $) {
                 return 1;
             }
         });
+    };
+    proto.shift = function () {
+        console.log('====shift');
+        this.sort();
         for(var i = 0, il = this._queue.length; i < il; i++){
             var item = this._queue[i];
             item.zone[item.action].apply(item.zone, item.args);
